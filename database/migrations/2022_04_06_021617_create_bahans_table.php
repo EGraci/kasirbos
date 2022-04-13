@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('id_bahan');
             $table->bigInteger('id_restaurant');
             $table->string('nama_barang');
-            $table->integer('qty');
+            $table->double('qty');
         });
     }
 

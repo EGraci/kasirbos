@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PemilikController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,7 @@ Route::post('/', [LoginController::class, 'proses_login']);
 //     Route::group(['middleware' => ['do_login:2']], function () {
 //         Route::resource('editor', AdminController::class);
 //     });
-Route::get('/pemiliktoko', function () {
-    return view('pemiliktoko/home');
-});
+Route::get('/pemiliktoko', [PemilikController::class, 'index']);
 Route::get('/supplier/barang', [SupplierController::class, 'index']);
 Route::post('/supplier/barang', [SupplierController::class, 'add_supplier']);
 Route::get('/supplier/barang/{id}', [SupplierController::class, 'view_supplier']);

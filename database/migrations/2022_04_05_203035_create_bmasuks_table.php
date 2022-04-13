@@ -18,8 +18,9 @@ return new class extends Migration
             $table->bigInteger('id_bahan');
             $table->bigInteger('supplier');
             $table->integer('total');
-            $table->integer('qty');
+            $table->double('qty');
             $table->integer('denda');
+            $table->integer('perkiraan');
             $table->date('tgl_masuk');
             $table->date('tgl_pesan');
 

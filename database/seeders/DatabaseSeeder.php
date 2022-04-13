@@ -69,12 +69,34 @@ class DatabaseSeeder extends Seeder
             [
                 'id_restaurant'=>1,
                 'nama_barang' => 'Beras',
-                'qty' => 0,
+                'qty' => 100.0,
             ],
             [
                 'id_restaurant'=>1,
                 'nama_barang' => 'Minyak Goreng',
-                'qty' => 0,
+                'qty' => 10.00,
+            ]
+        ];
+
+        foreach ($bahan as $key => $value) {
+            \App\Models\Bahan::create($value);
+        }
+        $bmasuk = [
+            [
+                'id_bahan'=>1,
+                'supplier' => 'Beras',
+                'total' => 1200000,
+                'qty' => 1000.0,
+                'tgl_masuk' => '2022-04-05',
+                'tgl_pesan' => '2022-04-01',
+            ],
+            [
+                'id_bahan'=>1,
+                'supplier' => 2,
+                'total' => '1000000',
+                'qty' => 100.00 ,
+                'tgl_masuk' => '2022-04-10',
+                'tgl_pesan' => '2022-04-01',
             ]
         ];
 
