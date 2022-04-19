@@ -149,7 +149,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -216,7 +215,7 @@
                             for ($i = 0; $i < $jml; $i++) {
                                 $id_bahan = $bahan[$i]['id_bahan'];
                                 $cek = Illuminate\Support\Facades\DB::select('SELECT (b.qty <= bm.qty *10/100) AS cek FROM bmasuk bm, bahan b WHERE bm.id_bahan = ? AND b.id_bahan = ? ORDER BY bm.id_bm ASC LIMIT 1', [2,2]);                                    
-                                if($cek == 1) {
+                                if($cek) {
                                     $save++;
                                 }
                             }
