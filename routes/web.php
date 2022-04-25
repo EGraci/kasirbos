@@ -26,6 +26,12 @@ Route::post('/', [LoginController::class, 'proses_login']);
 //         Route::resource('editor', AdminController::class);
 //     });
 Route::get('/pemiliktoko', [PemilikController::class, 'index']);
+Route::get('/pemiliktoko/home',  function () {
+    return view('pemiliktoko/home',[
+        "restaurant" => 1
+    ]);
+});
+Route::get('/pemiliktoko/supplier', [PemilikController::class, 'index']);
 Route::get('/supplier/barang', [SupplierController::class, 'index']);
 Route::post('/supplier/barang', [SupplierController::class, 'add_supplier']);
 Route::get('/supplier/barang/{id}', [SupplierController::class, 'view_supplier']);
