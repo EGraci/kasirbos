@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('akun_restaurant', function (Blueprint $table) {
-            $table->id('id_akun');
-            $table->bigInteger('id_user');
-            $table->bigInteger('id_restaurant');
+        Schema::create('profile', function (Blueprint $table) {
+            $table->id('id_profile');
+            $table->string('nama_pemilik')->nullable();
+            $table->string('nama_usaha')->nullable();
+            $table->string('siu')->nullable();
+            $table->string('alamat_usaha')->nullable();
+            $table->string('telepon')->nullable();
         });
     }
 

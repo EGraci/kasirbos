@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AkunRestaurant extends Model
+class Profile extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'akun_restaurant';
-    protected $primaryKey = 'id_akun';
+    protected $table = 'profile';
+    protected $primaryKey = 'id_profile';
     protected $fillable = [
-        'id_akun',
-        'id_user',
-        'id_restaurant',
+        'nama_pemilik',
+        'nama_usaha',
+        'siu',
+        'alamat_usaha',
+        'telepon',
     ];
 }

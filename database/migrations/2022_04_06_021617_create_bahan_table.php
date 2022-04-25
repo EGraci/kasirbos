@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('bahan', function (Blueprint $table) {
             $table->id('id_bahan');
-            $table->bigInteger('id_restaurant');
+            $table->bigInteger('id_profile');
             $table->string('nama_barang');
             $table->double('qty');
+            $table->integer('status');
+
         });
     }
 

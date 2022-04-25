@@ -12,9 +12,9 @@ class Bahan extends Model
     protected $table = 'bahan';
     protected $primaryKey = 'id_bahan';
     protected $fillable = [
-        'id_bahan',
-        'id_restaurant',
+        'id_profile',
         'nama_barang',
         'qty',
+        'status',
     ];
 }

@@ -16,87 +16,55 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        \App\Models\Restaurant::create([
-            "nama_restaurant" => "Nasi Padang",
-            "almt_restaurant" => "Jl.Diponegoro 9",
-            "no_telp" => "0812233",
-        ]);
+    
         $user = [
             [
                 'username' => 'admin',
-               'email'=>'admin@admin.com',
-                'level'=>'1',
+                'id_profile' => '1',
                'password'=> md5('admin'),
+               'level'=>'1',
             ],
             [
-                'username' => 'pemilik toko',
-               'email'=>'toko@toko.com',
+                'username' => 'restaurant',
+                'id_profile' => '2',
+               'password'=> md5('restaurant'),
                 'level'=>'2',
-               'password'=> md5('pemiliktoko'),
             ],
             [
-                'username' => 'supplier',
-               'email'=>'supplier@supplier.com',
-                'level'=>'3',
-               'password'=> md5('supplier'),
+                'username' => 'supplier1',
+                'id_profile' => '3',
+               'password'=> md5('supplier1'),
+               'level'=>'3',
             ],
             [
-                'username' => 'kasir',
-               'email'=>'kasir@kasir.com',
-                'level'=>'4',
-               'password'=> md5('kasir'),
+                'username' => 'supplier2',
+                'id_profile' => '4',
+               'password'=> md5('supplier2'),
+               'level'=>'3',
+            ],
+            [
+                'username' => 'supplier3',
+                'id_profile' => '5',
+               'password'=> md5('supplier3'),
+               'level'=>'3',
             ]
         ];
 
         foreach ($user as $key => $value) {
-            \App\Models\User::create($value);
-        }
-        $akun = [
-            [
-                'id_user' => 2,
-                'id_restaurant'=>1,
-            ],
-            [
-                'id_user' => 4,
-                'id_restaurant'=>1,
-            ]
-        ];
-
-        foreach ($akun as $key => $value) {
-            \App\Models\AkunRestaurant::create($value);
+            \App\Models\Profile::create($value);
         }
         $bahan = [
             [
-                'id_restaurant'=>1,
+                'id_profile'=>2,
                 'nama_barang' => 'Beras',
                 'qty' => 100.0,
+                'status' => 1,
             ],
             [
-                'id_restaurant'=>1,
+                'id_profile'=>2,
                 'nama_barang' => 'Minyak Goreng',
                 'qty' => 10.00,
-            ]
-        ];
-
-        foreach ($bahan as $key => $value) {
-            \App\Models\Bahan::create($value);
-        }
-        $bmasuk = [
-            [
-                'id_bahan'=>1,
-                'supplier' => 'Beras',
-                'total' => 1200000,
-                'qty' => 1000.0,
-                'tgl_masuk' => '2022-04-05',
-                'tgl_pesan' => '2022-04-01',
-            ],
-            [
-                'id_bahan'=>1,
-                'supplier' => 2,
-                'total' => '1000000',
-                'qty' => 100.00 ,
-                'tgl_masuk' => '2022-04-10',
-                'tgl_pesan' => '2022-04-01',
+                'status' => 1,
             ]
         ];
 

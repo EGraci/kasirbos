@@ -209,16 +209,16 @@
 
                         <!-- Nav Item - Alerts -->
                         @php
-                            $bahan = App\Models\Bahan::where('id_restaurant', $restaurant)->get();
-                            $jml = App\Models\Bahan::count();
-                            $save = 0;
-                            for ($i = 0; $i < $jml; $i++) {
-                                $id_bahan = $bahan[$i]['id_bahan'];
-                                $cek = Illuminate\Support\Facades\DB::select('SELECT (b.qty <= bm.qty *10/100) AS cek FROM bmasuk bm, bahan b WHERE bm.id_bahan = ? AND b.id_bahan = ? ORDER BY bm.id_bm ASC LIMIT 1', [2,2]);                                    
-                                if($cek) {
-                                    $save++;
-                                }
-                            }
+                            // $bahan = App\Models\Bahan::where('id_restaurant', $restaurant)->get();
+                            // $jml = App\Models\Bahan::count();
+                            // $save = 0;
+                            // for ($i = 0; $i < $jml; $i++) {
+                            //     $id_bahan = $bahan[$i]['id_bahan'];
+                            //     $cek = Illuminate\Support\Facades\DB::select('SELECT (b.qty <= bm.qty *10/100) AS cek FROM bmasuk bm, bahan b WHERE bm.id_bahan = ? AND b.id_bahan = ? ORDER BY bm.id_bm ASC LIMIT 1', [2,2]);                                    
+                            //     if($cek) {
+                            //         $save++;
+                            //     }
+                            // }
                             // dd($save);
                         @endphp
                         <!-- Nav Item - Messages -->
@@ -227,7 +227,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">{{$save}}</span>
+                                <span class="badge badge-danger badge-counter">2</span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
