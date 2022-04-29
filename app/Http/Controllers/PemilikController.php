@@ -13,4 +13,7 @@ class PemilikController extends Controller
             "restaurant" => $id_restaurant
         ]);
     }
+    public function suppliertoko(){
+        return view('pemiliktoko/Supplier');
+    }
 }

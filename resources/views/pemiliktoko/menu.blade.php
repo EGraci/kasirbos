@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/pemiliktoko/home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/pemiliktoko/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -48,7 +48,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/pemiliktoko/supplier" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/pemiliktoko/supplier" data-toggle="collapse"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Supplier</span>
