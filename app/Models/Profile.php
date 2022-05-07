@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Profile extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    public $incrementing = false;
     protected $table = 'profile';
     protected $primaryKey = 'id_profile';
     protected $fillable = [
@@ -18,4 +20,17 @@ class Profile extends Model
         'alamat_usaha',
         'telepon',
     ];
+    public function data_akun(){
+        return DB::table('profile')
+        ->join('user', 'user.id_profile', '=', 'profile.id_profile')
+        ->get(array(
+            'user.username',
+            'profile.nama_pemilik',
+            'profile.nama_usaha',
+            'profile.alamat_usaha',
+            'profile.telepon',
+            'profile.siup',
+            'user.level'
+        ));
+    }
 }

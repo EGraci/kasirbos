@@ -4,6 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\User;
+use App\Models\Profile;
+use App\Models\Berat;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,95 +21,121 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-    
-        $user = [
-            [
-                'username' => 'admin',
-                'id_profile' => '1',
-               'password'=> md5('admin'),
-               'level'=>'1',
-            ],
-            [
-                'username' => 'restaurant',
-                'id_profile' => '2',
-               'password'=> md5('restaurant'),
-                'level'=>'2',
-            ],
-            [
-                'username' => 'supplier1',
-                'id_profile' => '3',
-               'password'=> md5('supplier1'),
-               'level'=>'3',
-            ],
-            [
-                'username' => 'supplier2',
-                'id_profile' => '4',
-               'password'=> md5('supplier2'),
-               'level'=>'3',
-            ],
-            [
-                'username' => 'supplier3',
-                'id_profile' => '5',
-               'password'=> md5('supplier3'),
-               'level'=>'3',
-            ]
-        ];
+        $id_user = ['table' => 'user', 'length' => 10, 'prefix' => 'U', 'field' => 'id_user'];
 
-        foreach ($user as $key => $value) {
-            \App\Models\Profile::create($value);
-        }
-        $bahan = [
-            [
-                'id_profile'=>2,
-                'nama_barang' => 'Beras',
-                'qty' => 100.0,
-                'status' => 1,
-            ],
-            [
-                'id_profile'=>2,
-                'nama_barang' => 'Minyak Goreng',
-                'qty' => 10.00,
-                'status' => 1,
-            ]
-        ];
-
-        foreach ($bahan as $key => $value) {
-            \App\Models\Bahan::create($value);
-        }
-        $menu = [
-            [
-                'id_profile'=>2,
-                'nama_barang' => 'Ayam Bakar',
-                'harga_menu' => 30000,
-                'gambar' => '',
-            ],
-            [
-                'id_profile'=>2,
-                'nama_barang' => 'Nasi Putih',
-                'harga_menu' => 5000,
-                'gambar' => '',
-            ]
-        ];
-
-        foreach ($menu as $key => $value) {
-            \App\Models\Menu::create($value);
+        for($i = 0; $i < 5; $i++) {
+            $id = IdGenerator::generate($id_user);
+            switch($i){
+                case 0:
+                    $value = [
+                        'id_user' => $id,
+                        'username' => 'admin',
+                       'password'=> md5('admin'),
+                       'level'=>'1',
+                    ];
+                    break;
+                case 1:
+                    $value = [
+                        'id_user' => $id,
+                        'id_profile' => "P000000001",
+                        'username' => 'restaurant',
+                        'password'=> md5('restaurant'),
+                        'level'=>'2',
+                    ];
+                    break;
+                case 2:
+                    $value = [
+                        'id_user' => $id,
+                        'id_profile' => "P000000002",
+                        'username' => 'supplier1',
+                        'password'=> md5('supplier1'),
+                        'level'=>'3',
+                    ];
+                    break;
+                 case 3:
+                    $value = [
+                        'id_user' => $id,
+                        'id_profile' => "P000000003",
+                        'username' => 'supplier2',
+                        'password'=> md5('supplier2'),
+                        'level'=>'3',
+                    ];
+                    break;
+                 case 4:
+                    $value = [
+                        'id_user' => $id,
+                        'id_profile' => "P000000004",
+                        'username' => 'supplier3',
+                        'password'=> md5('supplier3'),
+                        'level'=>'3',
+                    ];
+                    break;
+            }
+            User::create($value);
         }
 
-        $produk = [
+        $id_profile = ['table' => 'profile', 'length' => 10, 'prefix' => 'P', 'field' => 'id_profile'];
+
+        for($i = 0; $i < 4; $i++) {
+            $id = IdGenerator::generate($id_profile);
+            switch($i){
+                case 0:
+                    $value = [
+                        'id_profile' => $id,
+                        'nama_pemilik' => 'restaurant',
+                       'nama_usaha'=> 'restaurant',
+                       'alamat_usaha'=>'resturant',
+                       'telepon'=>'08123456789',
+                    ];
+                    break;
+                case 1:
+                    $value = [
+                        'id_profile' => $id,
+                        'nama_pemilik' => 'supplier1',
+                       'nama_usaha'=> 'supplier1',
+                       'alamat_usaha'=>'supplier1',
+                       'telepon'=>'08123456789',
+                    ];
+                    break;
+                case 2:
+                    $value = [
+                        'id_profile' => $id,
+                        'nama_pemilik' => 'supplier2',
+                       'nama_usaha'=> 'supplier2',
+                       'alamat_usaha'=>'supplier2',
+                       'telepon'=>'08123456789',
+                    ];
+                    break;
+                 case 3:
+                    $value = [
+                        'id_profile' => $id,
+                        'nama_pemilik' => 'supplier3',
+                       'nama_usaha'=> 'supplier3',
+                       'alamat_usaha'=>'supplier3',
+                       'telepon'=>'08123456789',
+                    ];
+                    break;
+            }
+            Profile::create($value);
+        }
+
+        $berat = [
             [
-                'id_bahan'=> 1,
-                'id_menu' => 1,
-                'qty' => 0.01,
+                'berat' => 'Kg',
+                'gram' => 1000,
             ],
             [
-                'id_bahan'=>2,
-                'id_menu' => 1,
-                'qty' => 0.05,
-            ]
+                'berat' => 'Liter',
+                'gram' => 1000,
+            ],
+            [
+                'berat' => 'Ton',
+                'gram' => 907185,
+            ],
         ];
 
-        foreach ($produk as $key => $value) {
-            \App\Models\Produk::create($value);
+        foreach($berat as $value) {
+            Berat::create($value);
         }
     }
 }

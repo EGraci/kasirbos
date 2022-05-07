@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('menu', function (Blueprint $table) {
-            $table->id('id_menu');
-            $table->bigInteger('id_profile');
-            $table->string('nama_menu');
-            $table->integer('harga_menu');
-            $table->string('gambar');
+        Schema::create('berat', function (Blueprint $table) {
+            $table->id('kd_berat');
+            $table->string('berat', 100);
+            $table->bigInteger('gram');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu');
+        Schema::dropIfExists('berat');
     }
 };

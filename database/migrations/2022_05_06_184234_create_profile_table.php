@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('profile', function (Blueprint $table) {
-            $table->id('id_profile');
-            $table->string('nama_pemilik')->nullable();
-            $table->string('nama_usaha')->nullable();
-            $table->string('siu')->nullable();
-            $table->string('alamat_usaha')->nullable();
-            $table->string('telepon')->nullable();
+            $table->string('id_profile')->primary();
+            $table->string('nama_pemilik',100);
+            $table->string('nama_usaha',100);
+            $table->string('siup')->nullable();
+            $table->string('alamat_usaha');
+            $table->string('telepon');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('akun_restaurant');
+        Schema::dropIfExists('profile');
     }
 };

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PemilikController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,14 @@ Route::post('/', [LoginController::class, 'proses_login']);
 //     Route::group(['middleware' => ['do_login:2']], function () {
 //         Route::resource('editor', AdminController::class);
 //     });
+
+Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin/akun', [AdminController::class, 'akun']);
+Route::post('/admin/akun',[AdminController::class, 'add_akun']);
+
 Route::get('/pemiliktoko', [PemilikController::class, 'index']);
 Route::get('/pemiliktoko/supplier', [PemilikController::class, 'suppliertoko']);
+
 Route::get('/supplier/barang', [SupplierController::class, 'index']);
 Route::post('/supplier/barang', [SupplierController::class, 'add_supplier']);
 Route::get('/supplier/barang/{id}', [SupplierController::class, 'view_supplier']);
@@ -34,7 +41,6 @@ Route::post('/supplier/barang/{id}', [SupplierController::class, 'set_supplier']
 Route::get('/supplier/barang/delete/{id}', [SupplierController::class, 'delete_supplier']);
 Route::get('/supplier/toko',  [SupplierController::class, 'history']);
 Route::get('/supplier/pemberitahuan', [SupplierController::class, 'pemberitahu']);
-
 Route::get('/supplierprofil',  [SupplierController::class, 'profile']);
 
 
