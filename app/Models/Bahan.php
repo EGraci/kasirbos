@@ -10,11 +10,12 @@ class Bahan extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'bahan';
-    protected $primaryKey = 'id_bahan';
+    protected $primaryKey = 'kd_bahan';
     protected $fillable = [
         'id_profile',
+        'kd_berat',
         'nama_barang',
         'qty',
-        'status',
+        'status'
     ];
 }
