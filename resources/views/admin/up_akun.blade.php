@@ -117,7 +117,7 @@
                                 <th>Nama Usaha</th>
                                 <th>Alamat Usaha</th>
                                 <th>Telepon</th>
-                                <th>SIUP</th>
+                                <th>SIU</th>
                                 <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
