@@ -73,7 +73,7 @@
                         @enderror
                       </div>
                     <div class="form-group">
-                      <label>SIUP</label>
+                      <label>SIU</label>
                       <input type="file" class="form-control-file" name="siup">
                       @error('siup')
                         <div class="invalid-feedback d-block">

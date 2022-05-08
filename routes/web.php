@@ -32,6 +32,8 @@ Route::get('/admin/akun/{username}',[AdminController::class, 'set_akun']);
 Route::get('/admin/akun', [AdminController::class, 'akun']);
 Route::post('/admin/akun',[AdminController::class, 'add_akun']);
 Route::post('/admin/akun/do',[AdminController::class, 'do_akun']);
+Route::get('/admin/restaurant/{resto}',[AdminController::class, 'resto_masuk']);
+Route::get('/admin/restaurant',[AdminController::class, 'resto']);
 
 
 Route::get('/pemiliktoko', [PemilikController::class, 'index']);

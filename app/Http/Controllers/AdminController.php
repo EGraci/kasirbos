@@ -9,6 +9,12 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class AdminController extends Controller
 {
+    private $id_profile;
+
+    public function set_idProfile($id) : void{
+        $this->id_profile = $id;
+    }
+
     public function index(){
         return view('admin/menu');
     }
@@ -24,6 +30,15 @@ class AdminController extends Controller
             'akun' => $akun->data_akun(),
             'old' => $akun->data_akun($username)
         ]);
+    }
+    public function resto(){
+        $profile = new Profile();
+        return view('admin/restaurant',[
+            'resto' => $profile->data_profile()
+        ]);
+    }
+    public function resto_masuk($resto){
+        dd($resto);
     }
     public function do_akun(Request $request){
         $request->validate([
@@ -44,6 +59,7 @@ class AdminController extends Controller
         $user->username = $request->username;
         if(isset($request->password)){
             $user->password = md5($request->password);
+
         }
         $user->level = $request->level;
 

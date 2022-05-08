@@ -71,7 +71,7 @@
                         @enderror
                       </div>
                     <div class="form-group">
-                      <label>SIUP</label>
+                      <label>SIU</label>
                       <input type="file" class="form-control-file" name="siup">
                       @error('siup')
                         <div class="invalid-feedback d-block">
@@ -113,7 +113,7 @@
                                 <th>Nama Usaha</th>
                                 <th>Alamat Usaha</th>
                                 <th>Telepon</th>
-                                <th>SIUP</th>
+                                <th>username</th>
                                 <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -125,7 +125,7 @@
                                 <th>{{$data->nama_usaha}}</th>
                                 <th>{{$data->alamat_usaha}}</th>
                                 <th>{{$data->telepon}}</th>
-                                <th>{{$data->siup}}</th>
+                                <th>{{$data->username}}</th>
                                 @if ($data->level == 2)
                                 <th>Restaurant</th>
                                 @else
