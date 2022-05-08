@@ -20,17 +20,34 @@ class Profile extends Model
         'alamat_usaha',
         'telepon',
     ];
-    public function data_akun(){
-        return DB::table('profile')
-        ->join('user', 'user.id_profile', '=', 'profile.id_profile')
-        ->get(array(
-            'user.username',
-            'profile.nama_pemilik',
-            'profile.nama_usaha',
-            'profile.alamat_usaha',
-            'profile.telepon',
-            'profile.siup',
-            'user.level'
-        ));
+    public function data_akun($username = null){
+        if(is_null($username)){
+            return DB::table('profile')
+            ->join('user', 'user.id_profile', '=', 'profile.id_profile')
+            ->get(array(
+                'user.username',
+                'profile.nama_pemilik',
+                'profile.nama_usaha',
+                'profile.alamat_usaha',
+                'profile.telepon',
+                'profile.siup',
+                'user.level'
+            ));
+        }else{
+            return DB::table('profile')
+            ->join('user', 'user.id_profile', '=', 'profile.id_profile')
+            ->where('user.username','=',$username)
+            ->first(array(
+                'user.id_user',
+                'profile.id_profile',
+                'user.username',
+                'profile.nama_pemilik',
+                'profile.nama_usaha',
+                'profile.alamat_usaha',
+                'profile.telepon',
+                'profile.siup',
+                'user.level'
+            ));
+        }
     }
 }

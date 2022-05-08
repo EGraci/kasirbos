@@ -28,8 +28,11 @@ Route::post('/', [LoginController::class, 'proses_login']);
 //     });
 
 Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin/akun/{username}',[AdminController::class, 'set_akun']);
 Route::get('/admin/akun', [AdminController::class, 'akun']);
 Route::post('/admin/akun',[AdminController::class, 'add_akun']);
+Route::post('/admin/akun/do',[AdminController::class, 'do_akun']);
+
 
 Route::get('/pemiliktoko', [PemilikController::class, 'index']);
 Route::get('/pemiliktoko/supplier', [PemilikController::class, 'suppliertoko']);
