@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('bahan', function (Blueprint $table) {
             $table->id('kd_bahan');
             $table->string('id_profile',500);
-            $table->bigInteger('kd_berat');
             $table->string('nama_barang',100);
-            $table->integer('qty');
+            $table->decimal('qty');
             $table->string('status',20);
         });
     }

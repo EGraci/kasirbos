@@ -10,7 +10,7 @@ class Berat extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'berat';
-    protected $primaryKey = 'kd_berat   ';
+    protected $primaryKey = 'kd_berat';
     protected $fillable = [
         'berat',
         'gram',

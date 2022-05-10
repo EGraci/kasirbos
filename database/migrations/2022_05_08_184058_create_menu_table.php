@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('id_profile',500);
             $table->string('nama_menu',100);
             $table->integer('harga_menu');
-            $table->string('gambar',100);
+            $table->string('gambar',100)->nullable();
         });
     }
 

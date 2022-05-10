@@ -20,7 +20,7 @@ class Profile extends Model
         'alamat_usaha',
         'telepon',
     ];
-    public function data_profile(){
+    public function data_resto(){
         return DB::table('profile')
             ->join('user', 'user.id_profile', '=', 'profile.id_profile')
             ->where('user.level','=','2')

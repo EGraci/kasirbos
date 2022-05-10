@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Menu;
+use App\Models\Bahan;
+use App\Models\Berat;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class AdminController extends Controller
@@ -32,13 +35,73 @@ class AdminController extends Controller
         ]);
     }
     public function resto(){
-        $profile = new Profile();
+        $akun = new Profile();
         return view('admin/restaurant',[
-            'resto' => $profile->data_profile()
+            'resto' => $akun->data_resto()
         ]);
     }
     public function resto_masuk($resto){
+        return view('admin/masuk_restaurant',[
+            'resto' => $resto,
+            'menu' => Menu::where("id_profile","=",$resto)->get(),
+            'bahan' => Bahan::where("id_profile","=",$resto)->get()
+        ]);
+    }
+    public function menu($resto){
+        return view('admin/resto_set_menu', [
+            'resto' => $resto,
+            'menu' => Menu::where("id_profile","=",$resto)->get(),
+            'bahan' => Bahan::where("id_profile","=",$resto)->get()
+        ]);
+    }
+    public function bahan($resto){
+        return view('admin/resto_set_bahan', [
+            'resto' => $resto,
+            'menu' => Menu::where("id_profile","=",$resto)->get(),
+            'bahan' => Bahan::where("id_profile","=",$resto)->get(),
+            'berat' => Berat::get()
+        ]);
+    }
+    public function produk($resto){
         dd($resto);
+        return view('admin/resto_set_menu', [
+            'resto' => $resto,
+            'menu' => Menu::where("id_profile","=",$resto)->get(),
+            'bahan' => Bahan::where("id_profile","=",$resto)->get()
+        ]);
+    }
+    public function add_menu(Request $request, $resto){
+        $request->validate([
+            'menu' => 'required',
+            'harga' => 'required',
+            'gambar'
+        ]);
+
+        $menu = new Menu();
+        $menu->id_profile = $resto;
+        $menu->nama_menu = $request->menu;
+        $menu->harga_menu = $request->harga;
+        $menu->save();
+        return redirect('/admin/restaurant/'.$resto);
+    }
+    public function add_bahan(Request $request, $resto){
+        $request->validate([
+            'barang' => 'required',
+            'qty' => 'required',
+            'berat'
+        ]);
+
+        $berat = Berat::find($request->berat);
+        $qty = $request->qty * $berat->gram;
+
+        $bahan = new Bahan();
+        $bahan->id_profile = $resto;
+        $bahan->nama_barang = $request->barang;
+        $bahan->qty = $qty;
+        $bahan->status = "Ada";
+        $bahan->save();
+
+        return redirect('/admin/restaurant/'.$resto);
     }
     public function do_akun(Request $request){
         $request->validate([

@@ -32,8 +32,13 @@ Route::get('/admin/akun/{username}',[AdminController::class, 'set_akun']);
 Route::get('/admin/akun', [AdminController::class, 'akun']);
 Route::post('/admin/akun',[AdminController::class, 'add_akun']);
 Route::post('/admin/akun/do',[AdminController::class, 'do_akun']);
-Route::get('/admin/restaurant/{resto}',[AdminController::class, 'resto_masuk']);
 Route::get('/admin/restaurant',[AdminController::class, 'resto']);
+Route::get('/admin/restaurant/{resto}',[AdminController::class, 'resto_masuk']);
+Route::get('/admin/restaurant/{resto}/menu',[AdminController::class, 'menu']);
+Route::post('/admin/restaurant/{resto}/menu',[AdminController::class, 'add_menu']);
+Route::get('/admin/restaurant/{resto}/bahan',[AdminController::class, 'bahan']);
+Route::post('/admin/restaurant/{resto}/bahan',[AdminController::class, 'add_bahan']);
+Route::get('/admin/restaurant/{resto}/produk',[AdminController::class, 'produk']);
 
 
 Route::get('/pemiliktoko', [PemilikController::class, 'index']);

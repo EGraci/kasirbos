@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Bahan extends Model
 {
@@ -13,7 +15,6 @@ class Bahan extends Model
     protected $primaryKey = 'kd_bahan';
     protected $fillable = [
         'id_profile',
-        'kd_berat',
         'nama_barang',
         'qty',
         'status'
