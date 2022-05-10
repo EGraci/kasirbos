@@ -10,7 +10,7 @@ class Menu extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'menu';
-    protected $primaryKey = 'id_menu';
+    protected $primaryKey = 'kd_menu';
     protected $fillable = [
         'id_profile',
         'nama_menu',

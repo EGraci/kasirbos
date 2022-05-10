@@ -93,6 +93,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>KD Menu</th>
                                 <th>Nama Menu</th>
                                 <th>Harga Menu</th>
                                 <th>Aksi</th>
@@ -101,6 +102,7 @@
                         <tbody>
                             @foreach ($menu as $data)                                
                             <tr>
+                                <th>{{$data->kd_menu}}</th>
                                 <th>{{$data->nama_menu}}</th>
                                 <th>{{$data->harga_menu}}</th>
                                 <th><a href="/admin/restaurant/{{$resto}}/menu/{{$data->kd_menu}}">Ubah</a></th>
@@ -121,6 +123,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>KD Bahan</th>
                                 <th>Nama Barang</th>
                                 <th>Qty</th>
                                 <th>Status</th>
@@ -130,6 +133,7 @@
                         <tbody>
                             @foreach ($bahan as $data)                                
                             <tr>
+                                <th>{{$data->kd_bahan}}</th>
                                 <th>{{$data->nama_barang}}</th>
                                 <th>{{$data->qty}}</th>
                                 <th>{{$data->status}}</th>

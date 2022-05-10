@@ -54,9 +54,28 @@ class AdminController extends Controller
             'bahan' => Bahan::where("id_profile","=",$resto)->get()
         ]);
     }
+    public function set_menu($resto, $menu){
+        return view('admin/resto_up_menu', [
+            'resto' => $resto,
+            'kd' => $menu,
+            'old' => Menu::find($menu),
+            'menu' => Menu::where("id_profile","=",$resto)->get(),
+            'bahan' => Bahan::where("id_profile","=",$resto)->get()
+        ]);
+    }
     public function bahan($resto){
         return view('admin/resto_set_bahan', [
             'resto' => $resto,
+            'menu' => Menu::where("id_profile","=",$resto)->get(),
+            'bahan' => Bahan::where("id_profile","=",$resto)->get(),
+            'berat' => Berat::get()
+        ]);
+    }
+    public function set_bahan($resto, $bahan){
+        return view('admin/resto_up_bahan', [
+            'resto' => $resto,
+            'kd' => $bahan,
+            'old' => Bahan::find($bahan),
             'menu' => Menu::where("id_profile","=",$resto)->get(),
             'bahan' => Bahan::where("id_profile","=",$resto)->get(),
             'berat' => Berat::get()
@@ -84,6 +103,23 @@ class AdminController extends Controller
         $menu->save();
         return redirect('/admin/restaurant/'.$resto);
     }
+    public function do_menu(Request $request, $resto, $menu){
+        $request->validate([
+            'menu' => 'required',
+            'harga' => 'required',
+            'gambar'
+        ]);
+        $menu = Menu::find($menu);
+        $menu->nama_menu = $request->menu;
+        $menu->harga_menu = $request->harga;
+
+        if($request->submit == "simpan"){
+            $menu->save();
+        }elseif($request->submit == "hapus"){
+            $menu->delete();
+        }
+        return redirect('/admin/restaurant/'.$resto);
+    }
     public function add_bahan(Request $request, $resto){
         $request->validate([
             'barang' => 'required',
@@ -100,7 +136,26 @@ class AdminController extends Controller
         $bahan->qty = $qty;
         $bahan->status = "Ada";
         $bahan->save();
+        return redirect('/admin/restaurant/'.$resto);
+    }
+    public function do_bahan(Request $request, $resto, $bahan){
+        $request->validate([
+            'barang' => 'required',
+            'qty' => 'required',
+            'berat'
+        ]);
 
+        $berat = Berat::find($request->berat);
+        $qty = $request->qty * $berat->gram;
+
+        $bahan = Bahan::find($bahan);
+        $bahan->nama_barang = $request->barang;
+        $bahan->qty = $qty;
+        if($request->submit == "simpan"){
+            $bahan->save();
+        }elseif($request->submit == "hapus"){
+            $bahan->delete();
+        }
         return redirect('/admin/restaurant/'.$resto);
     }
     public function do_akun(Request $request){

@@ -121,6 +121,10 @@ class DatabaseSeeder extends Seeder
 
         $berat = [
             [
+                'berat' => 'Gram',
+                'gram' => 1,
+            ],
+            [
                 'berat' => 'Kg',
                 'gram' => 1000,
             ],

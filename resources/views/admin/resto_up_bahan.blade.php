@@ -40,40 +40,43 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">tambah menu</h6>
+                <h6 class="m-0 font-weight-bold text-primary">tambah bahan</h6>
             </div>
             <div class="card-body">
-                <form action="/admin/restaurant/{{$resto}}/menu/{{$kd}}" method="POST">
+                <form action="/admin/restaurant/{{$resto}}/bahan/{{$kd}}" method="POST">
                     @csrf
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label>Nama Menu</label>
-                        <input type="text" class="form-control @error('menu') is-invalid @enderror" value="{{$old->nama_menu}}" name="menu" placeholder="Nama Menu" required>
-                        @error('menu')
-                        <div class="invalid-feedback d-block">
-                          {{$message}}
-                        </div>
-                        @enderror
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label>Harga Menu</label>
-                        <input type="text" class="form-control @error('harga') is-invalid @enderror" value="{{$old->harga_menu}}" name="harga" placeholder="Harga Menu" required>
-                        @error('harga')
-                        <div class="invalid-feedback d-block">
-                          {{$message}}
-                        </div>
-                        @enderror
-                      </div>
-                    </div>
                     <div class="form-group">
-                      <label>Gambar Menu</label>
-                      <input type="file" class="form-control-file" name="gambar">
-                      @error('gambar')
+                        <label>Nama Barang</label>
+                        <input type="text" class="form-control @error('barang') is-invalid @enderror" value="{{$old->nama_barang}}" name="barang" placeholder="Nama Barang" required>
+                        @error('barang')
                         <div class="invalid-feedback d-block">
                           {{$message}}
                         </div>
-                       @enderror
-                    </div>                    
+                        @enderror
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label>Qty</label>
+                        </div>
+                      <div class="form-group col-md-6">
+                            <input type="text" class="form-control @error('qty') is-invalid @enderror" value="{{$old->qty}}" name="qty" placeholder="Qty" required>
+                            @error('qty')
+                            <div class="invalid-feedback d-block">
+                            {{$message}}
+                            </div>
+                            @enderror
+                      </div>
+                      <div class="form-group  col-md-6">
+                            <select class="form-control" name="berat">
+                                <option value="1" selected>Gram</option>
+                                @foreach($berat as $data)
+                                    @if("Gram" != $data->berat)
+                                    <option value="{{$data->kd_berat}}">{{$data->berat}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button type="submit" name="submit" class="btn btn-primary col-md-5" value="simpan">Simpan</button>
                         <button type="submit" name="submit" class="btn btn-danger col-md-5" value="hapus">hapus</button>
@@ -81,6 +84,7 @@
                   </form>
             </div>
         </div>
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">table menu</h6>

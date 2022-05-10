@@ -10,7 +10,7 @@ class Produk extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'produk';
-    protected $primaryKey = ['id_bahan','id_menu'];
+    protected $primaryKey = ['kd_bahan','kd_menu'];
     protected $fillable = [
         'qty',
     ];
