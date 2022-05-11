@@ -39,8 +39,47 @@
             
         </div>
 
-        {{-- form  --}}
-
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">tambah produk</h6>
+            </div>
+            <div class="card-body">
+                <form action="/admin/restaurant/{{$resto}}/produk" method="POST">
+                    @csrf
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label>KD Menu</label>
+                        <input type="text" class="form-control @error('menu') is-invalid @enderror" value="{{old('menu')}}" name="menu" placeholder="KD Menu" required>
+                        @error('menu')
+                        <div class="invalid-feedback d-block">
+                          {{$message}}
+                        </div>
+                        @enderror
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label>KD Bahan</label>
+                        <input type="text" class="form-control @error('bahan') is-invalid @enderror" value="{{old('bahan')}}" name="bahan" placeholder="KD Bahan" required>
+                        @error('bahan')
+                        <div class="invalid-feedback d-block">
+                          {{$message}}
+                        </div>
+                        @enderror
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Qty (Gram)</label>
+                        <input type="text" class="form-control @error('qty') is-invalid @enderror" value="{{old('qty')}}" name="qty" placeholder="Qty (Gram)" required>
+                        @error('qty')
+                        <div class="invalid-feedback d-block">
+                          {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                                     
+                    <button type="submit" class="btn btn-primary col-md-12">Tambah</button>
+                  </form>
+            </div>
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">table menu</h6>

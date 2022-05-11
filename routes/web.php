@@ -43,6 +43,7 @@ Route::post('/admin/restaurant/{resto}/bahan',[AdminController::class, 'add_baha
 Route::get('/admin/restaurant/{resto}/bahan/{bahan}',[AdminController::class, 'set_bahan']);
 Route::post('/admin/restaurant/{resto}/bahan/{bahan}',[AdminController::class, 'do_bahan']);
 Route::get('/admin/restaurant/{resto}/produk',[AdminController::class, 'produk']);
+Route::post('/admin/restaurant/{resto}/produk/',[AdminController::class, 'add_produk']);
 
 
 Route::get('/pemiliktoko', [PemilikController::class, 'index']);

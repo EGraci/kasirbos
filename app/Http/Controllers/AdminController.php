@@ -82,8 +82,7 @@ class AdminController extends Controller
         ]);
     }
     public function produk($resto){
-        dd($resto);
-        return view('admin/resto_set_menu', [
+        return view('admin/resto_set_produk', [
             'resto' => $resto,
             'menu' => Menu::where("id_profile","=",$resto)->get(),
             'bahan' => Bahan::where("id_profile","=",$resto)->get()
@@ -158,6 +157,16 @@ class AdminController extends Controller
         }
         return redirect('/admin/restaurant/'.$resto);
     }
+    public function add_produk(Request $request, $resto){
+        // dd("add");
+        $request->validate([
+            'menu' => 'required',
+            'bahan' => 'required',
+            'qty' => 'reqired',
+        ]);
+
+        return redirect('/admin/restaurant/'.$resto);
+    }
     public function do_akun(Request $request){
         $request->validate([
             'pemilik' => 'Required',
@@ -203,7 +212,7 @@ class AdminController extends Controller
             'usaha' => 'Required',
             'alamat' => 'Required',
             'telepon' => 'Required',
-            'username' => ['Required','unique:User'],
+            'username' => ['Required','unique:User,username'],
             'password' => 'Required',
             'level',
             'siup'
