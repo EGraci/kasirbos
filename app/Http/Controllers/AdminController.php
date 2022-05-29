@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\Menu;
 use App\Models\Bahan;
 use App\Models\Berat;
+use App\Models\Produk;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class AdminController extends Controller
@@ -81,9 +82,11 @@ class AdminController extends Controller
             'berat' => Berat::get()
         ]);
     }
-    public function produk($resto){
+    public function produk($resto, $menu){
+        $produk = new Produk();
         return view('admin/resto_set_produk', [
             'resto' => $resto,
+            'produk' => $produk->vw_menu_bahan($resto, $menu),
             'menu' => Menu::where("id_profile","=",$resto)->get(),
             'bahan' => Bahan::where("id_profile","=",$resto)->get()
         ]);
@@ -158,7 +161,7 @@ class AdminController extends Controller
         return redirect('/admin/restaurant/'.$resto);
     }
     public function add_produk(Request $request, $resto){
-        // dd("add");
+        dd("add");
         $request->validate([
             'menu' => 'required',
             'bahan' => 'required',

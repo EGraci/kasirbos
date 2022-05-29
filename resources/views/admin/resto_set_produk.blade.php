@@ -25,17 +25,6 @@
                     </div>
                 </a>
             </div>
-            <div class="col-xl-3 col-md-6 mb-4">
-                <a class="btn card bg-gradient-primary" href="/admin/restaurant/{{$resto}}/produk">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                                <div class="h5 mb-1 font-weight-bold text-uppercase text-light">
-                                    Produk
-                                </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
             
         </div>
 
@@ -44,7 +33,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">tambah produk</h6>
             </div>
             <div class="card-body">
-                <form action="/admin/restaurant/{{$resto}}/produk" method="POST">
+                <form action="/admin/restaurant/{{$resto}}/produk/" method="POST">
                     @csrf
                     <div class="form-row">
                       <div class="form-group col-md-6">
@@ -82,6 +71,39 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">table produk</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Menu</th>
+                                <th>Bahan</th>
+                                <th>Qty</th>
+                                <th>Aksi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(is_array($produk) || is_object($produk))
+                                @foreach ($produk as $data)                                
+                                <tr>
+                                    <th>{{$data->nama_menu}}</th>
+                                    <th>{{$data->nama_barang}}</th>
+                                    <th>{{$data->qty}}</th>
+                                    <th><a href="/admin/restaurant/{{$resto}}/produk/{{$data->kd_menu}}/{{$data->kd_bahan}}">Ubah</a></th>
+                                    <th><a href="/admin/restaurant/{{$resto}}/produk/{{$data->kd_menu}}/{{$data->kd_bahan}}/hapus">Hapus</a></th>
+                                </tr>
+                                @endforeach
+                            @endif                     
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">table menu</h6>
             </div>
             <div class="card-body">
@@ -92,7 +114,6 @@
                                 <th>KD Menu</th>
                                 <th>Nama Menu</th>
                                 <th>Harga Menu</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,7 +122,6 @@
                                 <th>{{$data->kd_menu}}</th>
                                 <th>{{$data->nama_menu}}</th>
                                 <th>{{$data->harga_menu}}</th>
-                                <th><a href="/admin/restaurant/{{$resto}}/menu/{{$data->kd_menu}}">Ubah</a></th>
                             </tr>
                             @endforeach                     
                         </tbody>
@@ -122,7 +142,6 @@
                                 <th>Nama Barang</th>
                                 <th>Qty</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,7 +151,6 @@
                                 <th>{{$data->nama_barang}}</th>
                                 <th>{{$data->qty}}</th>
                                 <th>{{$data->status}}</th>
-                                <th><a href="/admin/restaurant/{{$resto}}/bahan/{{$data->kd_bahan}}">Ubah</a></th>
                             </tr>
                             @endforeach                     
                         </tbody>

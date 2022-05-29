@@ -24,19 +24,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-4">
-                <a class="btn card bg-gradient-primary" href="/admin/restaurant/{{$resto}}/produk">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                                <div class="h5 mb-1 font-weight-bold text-uppercase text-light">
-                                    Produk
-                                </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
+            </div>            
         </div>
 
         {{-- form  --}}
@@ -54,6 +42,7 @@
                                 <th>Nama Menu</th>
                                 <th>Harga Menu</th>
                                 <th>Aksi</th>
+                                <th>Produk</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,6 +52,7 @@
                                 <th>{{$data->nama_menu}}</th>
                                 <th>{{$data->harga_menu}}</th>
                                 <th><a href="/admin/restaurant/{{$resto}}/menu/{{$data->kd_menu}}">Ubah</a></th>
+                                <th><a href="/admin/restaurant/{{$resto}}/produk/{{$data->kd_menu}}">Lihat</a></th>
                             </tr>
                             @endforeach                     
                         </tbody>
