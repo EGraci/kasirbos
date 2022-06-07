@@ -32,4 +32,41 @@ class Produk extends Model
                 'produk.qty',
             ));
     }
+    public function findById($kd_bahan, $kd_menu){
+        return DB::table('produk')
+        ->where([
+            ['kd_menu','=',$kd_menu],
+            ['kd_bahan','=',$kd_bahan],
+            ])
+            ->first();
+    }
+    public function set($kd_bahan, $kd_menu, $qty){
+        if($this->exitsById($kd_bahan, $kd_menu)){
+            DB::table('produk')
+            ->where([
+                ['kd_menu','=',$kd_menu],
+                ['kd_bahan','=',$kd_bahan],
+            ])
+            ->update(['qty' => $qty]);
+        }else{
+            DB::table('produk')
+            ->insert([
+                'kd_bahan' => $kd_bahan,
+                'kd_menu' => $kd_menu,
+                'qty' => $qty
+            ]);
+        }
+    }
+    
+    public function exitsById($kd_bahan, $kd_menu){
+        $data = DB::table('produk')->where([
+            ['kd_menu','=',$kd_menu],
+            ['kd_bahan','=',$kd_bahan],
+            ])
+            ->get();
+        if($data->count() >= 1){
+            return true;
+        }
+        return false;
+    }
 }

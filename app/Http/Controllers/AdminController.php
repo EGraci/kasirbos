@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Service\RestaurantService;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
@@ -13,8 +14,18 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class AdminController extends Controller
 {
+    private $bahan;
+    private $berat;
+    private $produk;
+    private $menu;
+    private $restaurantService;
     private $id_profile;
-
+    function __construct() {
+        $this->bahan = new Bahan();
+        $this->produk = new Produk();
+        $this->menu = new Menu();
+        $this->restaurantService = new RestaurantService();
+    }
     public function set_idProfile($id) : void{
         $this->id_profile = $id;
     }
@@ -83,13 +94,20 @@ class AdminController extends Controller
         ]);
     }
     public function produk($resto, $menu){
-        $produk = new Produk();
         return view('admin/resto_set_produk', [
             'resto' => $resto,
-            'produk' => $produk->vw_menu_bahan($resto, $menu),
-            'menu' => Menu::where("id_profile","=",$resto)->get(),
-            'bahan' => Bahan::where("id_profile","=",$resto)->get()
+            'bahan' => Bahan::where("id_profile","=",$resto)->get(),
+            'menu' => Menu::find($menu)
         ]);
+    }
+    public function set_produk(Request $request, $resto){
+        $request->validate([
+            'menu' => 'required',
+            'bahan' => 'required',
+            'qty' => 'required'
+        ]);
+        $this->restaurantService->set_produk($request->bahan,$request->menu,$request->qty);
+        return redirect('/admin/restaurant/'.$resto.'/produk/'.$request->menu);
     }
     public function add_menu(Request $request, $resto){
         $request->validate([
@@ -160,16 +178,7 @@ class AdminController extends Controller
         }
         return redirect('/admin/restaurant/'.$resto);
     }
-    public function add_produk(Request $request, $resto){
-        dd("add");
-        $request->validate([
-            'menu' => 'required',
-            'bahan' => 'required',
-            'qty' => 'reqired',
-        ]);
-
-        return redirect('/admin/restaurant/'.$resto);
-    }
+   
     public function do_akun(Request $request){
         $request->validate([
             'pemilik' => 'Required',

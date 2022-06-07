@@ -27,132 +27,42 @@
             </div>
             
         </div>
-
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">tambah produk</h6>
-            </div>
-            <div class="card-body">
-                <form action="/admin/restaurant/{{$resto}}/produk/" method="POST">
-                    @csrf
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label>KD Menu</label>
-                        <input type="text" class="form-control @error('menu') is-invalid @enderror" value="{{old('menu')}}" name="menu" placeholder="KD Menu" required>
-                        @error('menu')
-                        <div class="invalid-feedback d-block">
-                          {{$message}}
-                        </div>
-                        @enderror
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label>KD Bahan</label>
-                        <input type="text" class="form-control @error('bahan') is-invalid @enderror" value="{{old('bahan')}}" name="bahan" placeholder="KD Bahan" required>
-                        @error('bahan')
-                        <div class="invalid-feedback d-block">
-                          {{$message}}
-                        </div>
-                        @enderror
-                      </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Qty (Gram)</label>
-                        <input type="text" class="form-control @error('qty') is-invalid @enderror" value="{{old('qty')}}" name="qty" placeholder="Qty (Gram)" required>
-                        @error('qty')
-                        <div class="invalid-feedback d-block">
-                          {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                                     
-                    <button type="submit" class="btn btn-primary col-md-12">Tambah</button>
-                  </form>
-            </div>
-        </div>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">table produk</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Bahan Menu {{$menu->nama_menu}} </h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Menu</th>
                                 <th>Bahan</th>
-                                <th>Qty</th>
-                                <th>Aksi</th>
+                                <th>Qty(Gram)</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(is_array($produk) || is_object($produk))
-                                @foreach ($produk as $data)                                
+                            @foreach ($bahan as $data)                            
+                                <form action="/admin/restaurant/{{$resto}}/produk/" method="post">
+                                @csrf
+                                @php
+                                 if(DB::table('produk')->where([['kd_bahan', '=', $data->kd_bahan], ['kd_menu', '=', $menu->kd_menu]])->count() == 0){
+                                    $qty = '0.00';
+                                 }else{
+                                    $qty = DB::table('produk')->where([['kd_bahan', '=', $data->kd_bahan], ['kd_menu', '=', $menu->kd_menu]])->first();
+                                    $qty = $qty->qty;
+                                }   
+                                
+                                @endphp
                                 <tr>
-                                    <th>{{$data->nama_menu}}</th>
+                                    <input type="hidden" name="menu" value="{{$menu->kd_menu}}">
+                                    <input type="hidden" name="bahan" value="{{$data->kd_bahan}}">
                                     <th>{{$data->nama_barang}}</th>
-                                    <th>{{$data->qty}}</th>
-                                    <th><a href="/admin/restaurant/{{$resto}}/produk/{{$data->kd_menu}}/{{$data->kd_bahan}}">Ubah</a></th>
-                                    <th><a href="/admin/restaurant/{{$resto}}/produk/{{$data->kd_menu}}/{{$data->kd_bahan}}/hapus">Hapus</a></th>
+                                    <th><input type="text" name="qty" value="{{$qty}}"></th>
+                                    <th><button type="submit" class="btn btn-primary">Simpan</button></th>
                                 </tr>
-                                @endforeach
-                            @endif                     
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">table menu</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>KD Menu</th>
-                                <th>Nama Menu</th>
-                                <th>Harga Menu</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($menu as $data)                                
-                            <tr>
-                                <th>{{$data->kd_menu}}</th>
-                                <th>{{$data->nama_menu}}</th>
-                                <th>{{$data->harga_menu}}</th>
-                            </tr>
-                            @endforeach                     
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">table bahan</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>KD Bahan</th>
-                                <th>Nama Barang</th>
-                                <th>Qty</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bahan as $data)                                
-                            <tr>
-                                <th>{{$data->kd_bahan}}</th>
-                                <th>{{$data->nama_barang}}</th>
-                                <th>{{$data->qty}}</th>
-                                <th>{{$data->status}}</th>
-                            </tr>
-                            @endforeach                     
+                                </form>
+                            @endforeach          
                         </tbody>
                     </table>
                 </div>
