@@ -25,6 +25,7 @@ class AdminController extends Controller
         $this->produk = new Produk();
         $this->menu = new Menu();
         $this->restaurantService = new RestaurantService();
+        // $this->middleware('auth');
     }
     public function set_idProfile($id) : void{
         $this->id_profile = $id;

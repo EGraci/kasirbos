@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
+namespace App;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+class User extends Authenticatable
 {
-    use HasFactory;
-    public $timestamps = false;
-    public $incrementing = false;
-    protected $table = 'user';
-    protected $primaryKey = 'id_user';
+    use HasApiTokens, Notifiable;
     protected $fillable = [
         'id_profile',
         'username',
@@ -20,6 +16,12 @@ class User extends Model
     ];
     protected $hidden = [
         'password',
-        // 'remember_token',
     ];
+
+    protected function level(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  ["1", "2", "3"][$value],
+        );
+    }
 }

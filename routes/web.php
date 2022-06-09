@@ -17,15 +17,9 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index']);
-Route::post('/', [LoginController::class, 'proses_login']);
-// Route::group(['middleware' => ['auth']], function () {
-//     Route::group(['middleware' => ['do_login:1']], function () {
-//         Route::resource('admin', AdminController::class);
-//     });
-//     Route::group(['middleware' => ['do_login:2']], function () {
-//         Route::resource('editor', AdminController::class);
-//     });
+Route::get('/', function () {
+    return view('login');
+});
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/akun/{username}',[AdminController::class, 'set_akun']);

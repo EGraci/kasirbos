@@ -4,41 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
     public function index()
     {
-        if ($user = Auth::user()) {
-            if ($user->level == '1') {
-                return redirect()->intended('admin');
-            } elseif ($user->level == '2') {
-                return redirect()->intended('editor');
-            }
-        }
         return view('login');
     }
     public function proses_login(Request $request)
     {
+        // dd("do login");
         request()->validate(
             [
-                'email' => 'required',
+                'username' => 'required',
                 'password' => 'required',
             ]);
+        
+            $input = $request->all();
 
-        $kredensil = $request->only('email','password');
-
-            if (Auth::attempt($kredensil)) {
-                $user = Auth::user();
-                if ($user->level == '1') {
-                    dd('admin');
-                    // return redirect()->intended('admin');
-                } elseif ($user->level == '2') {
-                    // return redirect()->intended('editor');
-                    dd('pemilik toko');
+            if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+                if (auth()->user()->type == '1') {
+                    return redirect('/admin');
+                }else if (auth()->user()->type == '2') {
+                    return redirect('/restaurant');
+                }else{
+                    return redirect('/supplier');
                 }
-                return redirect()->intended('/');
             }
 
         return redirect('login')->withInput()->withErrors(['login_gagal' => 'These credentials do not match our records.']);
