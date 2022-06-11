@@ -10861,9 +10861,11 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://selular.id/wp-content/uploads/2021/06/valorant-logo-characters-red-pink-PC-696x348.jpg");
+  background: url("/img/bg.png");
   background-position: center;
   background-size: cover;
+  width: 400px;
+  height: 400px;
 }
 
 .bg-register-image {
