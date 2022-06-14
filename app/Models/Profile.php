@@ -36,7 +36,7 @@ class Profile extends Model
             return DB::table('profile')
             ->join('user', 'user.id_profile', '=', 'profile.id_profile')
             ->get(array(
-                'user.username',
+                'user.email',
                 'profile.nama_pemilik',
                 'profile.nama_usaha',
                 'profile.alamat_usaha',
@@ -47,11 +47,11 @@ class Profile extends Model
         }else{
             return DB::table('profile')
             ->join('user', 'user.id_profile', '=', 'profile.id_profile')
-            ->where('user.username','=',$username)
+            ->where('user.email','=',$username)
             ->first(array(
                 'user.id_user',
                 'profile.id_profile',
-                'user.username',
+                'user.email',
                 'profile.nama_pemilik',
                 'profile.nama_usaha',
                 'profile.alamat_usaha',

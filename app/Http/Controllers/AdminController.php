@@ -196,7 +196,7 @@ class AdminController extends Controller
         ]);
 
         $user = User::find($request->user);
-        $user->username = $request->username;
+        $user->email = $request->username;
         if(isset($request->password)){
             $user->password = md5($request->password);
 
@@ -239,7 +239,7 @@ class AdminController extends Controller
         $user = new User;
         $user->id_user = $id_user;
         $user->id_profile = $id_profile;
-        $user->username = $request->username;
+        $user->email = $request->username;
         $user->password = md5($request->password);
         $user->level = $request->level;
         $user->save();

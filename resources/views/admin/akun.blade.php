@@ -70,7 +70,7 @@
                         </div>
                         @enderror
                       </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label>SIU</label>
                       <input type="file" class="form-control-file" name="siup">
                       @error('siup')
@@ -78,7 +78,7 @@
                           {{$message}}
                         </div>
                        @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                       <label>Jabatan</label>
                       <select class="form-control" name="level">
@@ -113,7 +113,7 @@
                                 <th>Nama Usaha</th>
                                 <th>Alamat Usaha</th>
                                 <th>Telepon</th>
-                                <th>username</th>
+                                <th>Email</th>
                                 <th>Jabatan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -125,13 +125,13 @@
                                 <th>{{$data->nama_usaha}}</th>
                                 <th>{{$data->alamat_usaha}}</th>
                                 <th>{{$data->telepon}}</th>
-                                <th>{{$data->username}}</th>
+                                <th>{{$data->email}}</th>
                                 @if ($data->level == 2)
                                 <th>Restaurant</th>
                                 @else
                                 <th>Supplier</th>
                                 @endif
-                                <th><a href="/admin/akun/{{$data->username}}">Ubah</a></th>
+                                <th><a href="/admin/akun/{{$data->email}}">Ubah</a></th>
 
                             </tr>
                             @endforeach                     
