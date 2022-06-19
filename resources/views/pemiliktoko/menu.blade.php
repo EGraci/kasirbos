@@ -46,12 +46,12 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/pemiliktoko/menu_dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="pemiliktoko/menu_bahan">
+                <a class="nav-link" href="/pemiliktoko/menu_bahan">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Bahan</span></a>
             </li>
@@ -61,7 +61,7 @@
                     <span>Menu</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/pemiliktoko/menu_supplier">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Supplier</span></a>
             </li>
