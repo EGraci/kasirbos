@@ -27,20 +27,41 @@ class AdminController extends Controller
         $this->restaurantService = new RestaurantService();
         // $this->middleware('auth');
     }
-    public function set_idProfile($id) : void{
-        $this->id_profile = $id;
-    }
 
     public function index(){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/menu');
     }
     public function akun(){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         $akun = new Profile();
         return view('admin/akun',[
             'akun' => $akun->data_akun()
         ]);
     }
     public function set_akun($username){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         $akun = new Profile();
         return view('admin/up_akun',[
             'akun' => $akun->data_akun(),
@@ -48,12 +69,28 @@ class AdminController extends Controller
         ]);
     }
     public function resto(){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         $akun = new Profile();
         return view('admin/restaurant',[
             'resto' => $akun->data_resto()
         ]);
     }
     public function resto_masuk($resto){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/masuk_restaurant',[
             'resto' => $resto,
             'menu' => Menu::where("id_profile","=",$resto)->get(),
@@ -61,6 +98,14 @@ class AdminController extends Controller
         ]);
     }
     public function menu($resto){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/resto_set_menu', [
             'resto' => $resto,
             'menu' => Menu::where("id_profile","=",$resto)->get(),
@@ -68,6 +113,14 @@ class AdminController extends Controller
         ]);
     }
     public function set_menu($resto, $menu){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/resto_up_menu', [
             'resto' => $resto,
             'kd' => $menu,
@@ -77,6 +130,14 @@ class AdminController extends Controller
         ]);
     }
     public function bahan($resto){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/resto_set_bahan', [
             'resto' => $resto,
             'menu' => Menu::where("id_profile","=",$resto)->get(),
@@ -85,6 +146,14 @@ class AdminController extends Controller
         ]);
     }
     public function set_bahan($resto, $bahan){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/resto_up_bahan', [
             'resto' => $resto,
             'kd' => $bahan,
@@ -95,13 +164,21 @@ class AdminController extends Controller
         ]);
     }
     public function produk($resto, $menu){
+        if(session()->get('level') == 2){
+            return redirect('/pemiliktoko');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
         return view('admin/resto_set_produk', [
             'resto' => $resto,
             'bahan' => Bahan::where("id_profile","=",$resto)->get(),
             'menu' => Menu::find($menu)
         ]);
     }
-    public function set_produk(Request $request, $resto){
+    public function set_produk(Request $request, $resto){        
         $request->validate([
             'menu' => 'required',
             'bahan' => 'required',

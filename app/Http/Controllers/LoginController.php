@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    
     public function index()
     {
+        if (session()->get('level') == '1') {
+            return redirect('/admin');
+        }else if (session()->get('level') == '2') {
+            return redirect('/restaurant');
+        }else if(session()->get('level') == '3'){
+            return redirect('/supplier');
+        }
+
         return view('login');
     }
     public function proses_login(Request $request)
@@ -25,26 +29,33 @@ class LoginController extends Controller
                 'username' => 'required',
                 'password' => 'required',
             ]);
-        
-            $input = $request->all();
-
-            if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-                if (auth()->user()->type == '1') {
-                    return redirect('/admin');
-                }else if (auth()->user()->type == '2') {
-                    return redirect('/restaurant');
-                }else{
-                    return redirect('/supplier');
-                }
+            $cek = User::where([
+                ['email','=',$request->username],
+                ['password','=',md5($request->password)],
+            ])
+            ->count();
+            $akun = User::where([
+                ['email','=',$request->username],
+                ['password','=',md5($request->password)],
+            ])
+            ->first();
+            session(['id_profile'=> $akun->id_profile, 'level'=> $akun->level]);
+        if ($cek > 0) {
+            if ($akun->level == '1') {
+                return redirect('/admin');
+            }else if ($akun->level == '2') {
+                return redirect('/restaurant');
+            }else if($akun->level == '3'){
+                return redirect('/supplier');
             }
-
-        return redirect('login')->withInput()->withErrors(['login_gagal' => 'These credentials do not match our records.']);
+        }
+        return redirect('/')->withInput()->withErrors(['login_gagal' => 'These credentials do not match our records.']);
     }
 
-    public function logout(Request $request)
+    public function keluar()
     {
-       $request->session()->flush();
-       Auth::logout();
-       return Redirect('login');
+        session()->remove('level');
+        session()->remove('id_profile');
+       return redirect('/');
     }
 }

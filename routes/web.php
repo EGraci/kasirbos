@@ -17,10 +17,10 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
-// tambah
+Route::get('/',  [LoginController::class, 'index']);
+Route::get('/keluar',  [LoginController::class, 'keluar']);
+Route::post('/',  [LoginController::class, 'proses_login']);
+
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/akun/{username}',[AdminController::class, 'set_akun']);
 Route::get('/admin/akun', [AdminController::class, 'akun']);

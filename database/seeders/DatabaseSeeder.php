@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
                 case 0:
                     $value = [
                         'id_user' => $id,
-                        'email' => 'admin',
+                        'email' => 'admin@admin.com',
                        'password'=> md5('admin'),
                        'level'=>'1',
                     ];
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
                     $value = [
                         'id_user' => $id,
                         'id_profile' => "P000000001",
-                        'email' => 'restaurant',
+                        'email' => 'restaurant@restaurant.com',
                         'password'=> md5('restaurant'),
                         'level'=>'2',
                     ];
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
                     $value = [
                         'id_user' => $id,
                         'id_profile' => "P000000002",
-                        'email' => 'supplier1',
+                        'email' => 'supplier1@supplier1.com',
                         'password'=> md5('supplier1'),
                         'level'=>'3',
                     ];
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
                     $value = [
                         'id_user' => $id,
                         'id_profile' => "P000000003",
-                        'email' => 'supplier2',
+                        'email' => 'supplier2@supplier2.com',
                         'password'=> md5('supplier2'),
                         'level'=>'3',
                     ];
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
                     $value = [
                         'id_user' => $id,
                         'id_profile' => "P000000004",
-                        'email' => 'supplier3',
+                        'email' => 'supplier3@supplier1.com',
                         'password'=> md5('supplier3'),
                         'level'=>'3',
                     ];
