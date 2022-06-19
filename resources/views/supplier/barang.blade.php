@@ -26,10 +26,21 @@
                         <input type="number" class="form-control" id="inputPassword4" name="max" placeholder="Harga Maximum" required>
                       </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputAddress">Quantity</label>
-                        <input type="number" class="form-control" id="inputAddress" name="qty" placeholder="Quantity" required>
-                      </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress">Quantity</label>
+                            <input type="number" class="form-control" id="inputAddress" name="qty" placeholder="Quantity" required>
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label for="inputAddress">Berat</label>
+                            <select class="form-control" name="berat">
+                                <option value="1" selected>Gram</option>
+                                @foreach($berat as $data)
+                                    <option value="{{$data->kd_berat}}">{{$data->berat}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>    
                     <div class="form-group">
                       <label for="inputAddress">pengiriman(day)</label>
                       <input type="number" class="form-control" id="inputAddress" name="estimasi" placeholder="pengiriman(day)" required>

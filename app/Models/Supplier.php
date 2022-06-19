@@ -12,11 +12,12 @@ class Supplier extends Model
     protected $table = 'supplier';
     protected $primaryKey = 'id_supplier';
     protected $fillable = [
-        'id_user',
+        'id_profile',
         'produk',
         'total',
         'qty',
         'denda',
         'perkiraan',
+        'gambar',
     ];
 }
