@@ -40,8 +40,12 @@ Route::get('/admin/restaurant/{resto}/produk/{menu}',[AdminController::class, 'p
 Route::post('/admin/restaurant/{resto}/produk/',[AdminController::class, 'set_produk']);
 
 
-Route::get('/pemiliktoko', [PemilikController::class, 'index']);
-Route::get('/pemiliktoko/supplier', [PemilikController::class, 'suppliertoko']);
+Route::get('/restaurant', [PemilikController::class, 'dashboard']);
+Route::get('/restaurant/menu', [PemilikController::class, 'menu']);
+Route::get('/restaurant/bahan', [PemilikController::class, 'bahan']);
+Route::get('/restaurant/kasir', [PemilikController::class, 'kasir']);
+Route::get('/restaurant/supplier', [PemilikController::class, 'dashoard']);
+
 
 Route::get('/supplier', [SupplierController::class, 'index']);
 Route::get('/supplier/barang', [SupplierController::class, 'barang']);
