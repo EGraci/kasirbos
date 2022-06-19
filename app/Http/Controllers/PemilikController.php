@@ -16,4 +16,7 @@ class PemilikController extends Controller
     public function suppliertoko(){
         return view('pemiliktoko/Supplier');
     }
+    public function menu(){
+        return view('pemiliktoko/menu_resto');
+    }
 }
