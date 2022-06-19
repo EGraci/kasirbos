@@ -19,4 +19,7 @@ class PemilikController extends Controller
     public function menu(){
         return view('pemiliktoko/menu_resto');
     }
+    public function menu_bahan(){
+        return view('pemiliktoko/menu_bahan');
+    }
 }
