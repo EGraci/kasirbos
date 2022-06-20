@@ -158,18 +158,15 @@
                 <!-- End of Topbar -->
                 
                 <!-- Bootstrap core JavaScript-->
-                <script src="vendor/jquery/jquery.min.js"></script>
-                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-                {{-- jquery --}}
-                <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+                <script src="{{asset('vendor/jquery/jquery.js')}}"></script>
+                <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
 
                 <!-- Core plugin JavaScript-->
-                <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                <script src="{{asset('vendor/jquery-easing/jquery.easing.js')}}"></script>
 
                 
                 <!-- Custom scripts for all pages-->
-                <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+                <script src="{{asset('js/sb-admin-2.js')}}"></script>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     @yield('konten')
