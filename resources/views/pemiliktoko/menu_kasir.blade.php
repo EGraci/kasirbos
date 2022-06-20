@@ -99,11 +99,6 @@
                     </div>
                     </div>
                 </div>
-              </div>
-              {{-- <input type="hidden" class="reset"  id="product_id" name="product_id">
-              <input type="hidden" class="reset" id="val_selling_price" name="selling_price">
-              <input type="hidden" class="reset" id="val_product_name" name="product_name">
-              <input type="hidden" class="reset" id="val_product_qty" name="stock_product_qty">
 
                 <div class="col-sm-12 col-md-8">
                     <h1 class="">
@@ -166,7 +161,7 @@
           $(".sidebar").toggleClass("toggled");
         });
     
-        function listening_serch_product(params) {
+        function listening_serch_product() {
           $("#search").autocomplete({
             minLength: 1,
             delay : 400,
@@ -235,7 +230,7 @@
           
         function save_to_cart(){
           $.ajax({
-            url : "<?= site_url('option/add_keranjang') ?>",
+            url : "<?= '/option/add_keranjang' ?>",
             type: "POST",
             dataType: "JSON",
             data: $('#form_order').serialize(),
@@ -310,7 +305,7 @@
           let bayar = $('#bayar').val();
           let kembali = $('#kembali').val();
           $.ajax({
-            url: "<?= site_url('option/save_orders/') ?>",
+            url: "<?= '/option/save_orders/' ?>",
             data: {
               bayar:bayar,
               kembali:kembali
