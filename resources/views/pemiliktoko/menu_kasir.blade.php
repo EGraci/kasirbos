@@ -1,6 +1,6 @@
 @extends('pemiliktoko/menu')
     @section('konten')
-
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <div class="container-fluid">
         <div class="col-sm-12">
             <div class="row">
@@ -8,7 +8,7 @@
                     <form class="form-horizontal" id="form_order" role="form">
                     <div class="form-group row">
                         <div class="col">
-                        <input class="form-control reset border-primary" id="search"  id="search" name="search" type="text" placeholder="Nama" >
+                        <input class="form-control reset border-primary" id="search" name="search" type="text" placeholder="Nama" >
                         </div>
                     </div>
                     
