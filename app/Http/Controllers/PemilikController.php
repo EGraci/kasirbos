@@ -7,6 +7,7 @@ use App\Models\Berat;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\Profile;
 
 class PemilikController extends Controller
@@ -59,6 +60,7 @@ class PemilikController extends Controller
         ]);
     }
     public function produk($menu){
+        dd($menu);
         if(session()->get('level') == 1){
             return redirect('/admin');
         }else if (session()->get('level') == '3') {
@@ -149,8 +151,29 @@ class PemilikController extends Controller
         }else if(session()->get('level') == null){
             return redirect('/');
         }
+
+        $nota = ['table' => 'bkeluar', 'length' => 10, 'prefix' => '0', 'field' => 'kd_bkeluar'];
+        $nota = IdGenerator::generate($nota);
         return view('pemiliktoko/menu_kasir',[
-            "profile" => Profile::where('id_profile', session()->get('id_profile'))->first()
+            "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
+            "id" => $nota
+
+        ]);
+    }
+    public function cari_menu($nama){
+        if(session()->get('level') == 1){
+            return redirect('/admin');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+        
+        return view('pemiliktoko/json',[
+            "data" => Menu::where([
+                ["id_profile","=",session()->get('id_profile')],
+                ["nama_menu","LIKE","%".$nama."%"],
+            ])->get()
         ]);
     }
     public function add_menu(Request $request){
