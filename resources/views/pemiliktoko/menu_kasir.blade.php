@@ -167,7 +167,7 @@
             delay : 400,
             source: function(request, response) { 
               jQuery.ajax({
-                url: "<?= 'option/search_product' ?>",
+                url: "<?= '/option/search_product' ?>",
                 data: {
                   keyword : request.term
                 },
