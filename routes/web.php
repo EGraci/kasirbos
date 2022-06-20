@@ -42,7 +42,13 @@ Route::post('/admin/restaurant/{resto}/produk/',[AdminController::class, 'set_pr
 
 Route::get('/restaurant', [PemilikController::class, 'dashboard']);
 Route::get('/restaurant/menu', [PemilikController::class, 'menu']);
+Route::post('/restaurant/menu', [PemilikController::class, 'add_menu']);
+Route::get('/restaurant/menu/{kd}', [PemilikController::class, 'set_menu']);
+Route::post('/restaurant/menu/{kd}', [PemilikController::class, 'do_menu']);
 Route::get('/restaurant/bahan', [PemilikController::class, 'bahan']);
+Route::post('/restaurant/bahan', [PemilikController::class, 'add_bahan']);
+Route::get('/restaurant/bahan/{kd}', [PemilikController::class, 'set_bahan']);
+Route::post('/restaurant/bahan/{kd}', [PemilikController::class, 'do_bahan']);
 Route::get('/restaurant/kasir', [PemilikController::class, 'kasir']);
 Route::get('/restaurant/supplier', [PemilikController::class, 'dashoard']);
 

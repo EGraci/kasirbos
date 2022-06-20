@@ -139,7 +139,7 @@ class PemilikController extends Controller
         $menu->save();
         return redirect('/restaurant/menu');
     }
-    public function do_menu(Request $request, $resto, $menu){
+    public function do_menu(Request $request, $menu){
         $request->validate([
             'menu' => 'required',
             'harga' => 'required',
@@ -154,7 +154,7 @@ class PemilikController extends Controller
         }elseif($request->submit == "hapus"){
             $menu->delete();
         }
-        return redirect('/admin/restaurant/'.$resto);
+        return redirect('/restaurant/menu');
     }
     public function add_bahan(Request $request){
         $request->validate([
@@ -174,7 +174,7 @@ class PemilikController extends Controller
         $bahan->save();
         return redirect('/restaurant/bahan');
     }
-    public function do_bahan(Request $request, $resto, $bahan){
+    public function do_bahan(Request $request, $bahan){
         $request->validate([
             'barang' => 'required',
             'qty' => 'required',
@@ -192,6 +192,6 @@ class PemilikController extends Controller
         }elseif($request->submit == "hapus"){
             $bahan->delete();
         }
-        return redirect('/admin/restaurant/'.$resto);
+        return redirect('/restaurant/bahan');
     }
 }

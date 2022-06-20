@@ -7,11 +7,11 @@
                 <h6 class="m-0 font-weight-bold text-primary">tambah bahan</h6>
             </div>
             <div class="card-body">
-                <form action="/restaurant/bahan" method="POST">
+                <form action="/restaurant/bahan/{{$kd}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>Nama Barang</label>
-                        <input type="text" class="form-control @error('barang') is-invalid @enderror" value="{{old('barang')}}" name="barang" placeholder="Nama Barang" required>
+                        <input type="text" class="form-control @error('barang') is-invalid @enderror" value="{{$old->nama_barang}}" name="barang" placeholder="Nama Barang" required>
                         @error('barang')
                         <div class="invalid-feedback d-block">
                           {{$message}}
@@ -23,7 +23,7 @@
                             <label>Qty</label>
                         </div>
                       <div class="form-group col-md-6">
-                            <input type="text" class="form-control @error('qty') is-invalid @enderror" value="{{old('qty')}}" name="qty" placeholder="Qty" required>
+                            <input type="text" class="form-control @error('qty') is-invalid @enderror" value="{{$old->qty}}" name="qty" placeholder="Qty" required>
                             @error('qty')
                             <div class="invalid-feedback d-block">
                             {{$message}}
@@ -32,18 +32,19 @@
                       </div>
                       <div class="form-group  col-md-6">
                             <select class="form-control" name="berat">
+                                <option value="1" selected>Gram</option>
                                 @foreach($berat as $data)
-                                    @if(old('berat') == $data->berat)
-                                    <option value="{{$data->kd_berat}}" selected>{{$data->berat}}</option>
-                                    @else
+                                    @if("Gram" != $data->berat)
                                     <option value="{{$data->kd_berat}}">{{$data->berat}}</option>
                                     @endif
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary col-md-12">Tambah</button>
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="btn btn-primary col-md-5" value="simpan">Simpan</button>
+                        <button type="submit" name="submit" class="btn btn-danger col-md-5" value="hapus">hapus</button>
+                    </div>
                   </form>
             </div>
         </div>
