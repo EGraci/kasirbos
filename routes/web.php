@@ -45,6 +45,8 @@ Route::get('/restaurant/menu', [PemilikController::class, 'menu']);
 Route::post('/restaurant/menu', [PemilikController::class, 'add_menu']);
 Route::get('/restaurant/menu/{kd}', [PemilikController::class, 'set_menu']);
 Route::post('/restaurant/menu/{kd}', [PemilikController::class, 'do_menu']);
+Route::get('/restaurant/produk/{kd}', [PemilikController::class, 'produk']);
+Route::post('/restaurant/produk', [PemilikController::class, 'do_produk']);
 Route::get('/restaurant/bahan', [PemilikController::class, 'bahan']);
 Route::post('/restaurant/bahan', [PemilikController::class, 'add_bahan']);
 Route::get('/restaurant/bahan/{kd}', [PemilikController::class, 'set_bahan']);

@@ -11,6 +11,10 @@ use App\Models\Profile;
 
 class PemilikController extends Controller
 {
+    private $produk;
+    function __construct() {
+        $this->produk = new Produk();
+    }
     public function suppliertoko(){
         if(session()->get('level') == 1){
             return redirect('/admin');
@@ -53,6 +57,30 @@ class PemilikController extends Controller
             'old' => Menu::find($menu),
             'menu' => Menu::where("id_profile","=",session()->get('id_profile'))->get()
         ]);
+    }
+    public function produk($menu){
+        if(session()->get('level') == 1){
+            return redirect('/admin');
+        }else if (session()->get('level') == '3') {
+            return redirect('/supplier');
+        }else if(session()->get('level') == null){
+            return redirect('/');
+        }
+
+        return view('pemiliktoko/set_produk', [
+            "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
+            'bahan' => Bahan::where("id_profile","=",session()->get('id_profile'))->get(),
+            'menu' => Menu::find($menu)
+        ]);
+    }
+    public function do_produk(Request $request){        
+        $request->validate([
+            'menu' => 'required',
+            'bahan' => 'required',
+            'qty' => 'required'
+        ]);
+       $this->produk->set($request->bahan,$request->menu,$request->qty);
+        return redirect('/restaurant/produk/'.$request->menu);
     }
     
     public function bahan(){
