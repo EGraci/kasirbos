@@ -99,6 +99,11 @@
                     </div>
                     </div>
                 </div>
+              </div>
+              {{-- <input type="hidden" class="reset"  id="product_id" name="product_id">
+              <input type="hidden" class="reset" id="val_selling_price" name="selling_price">
+              <input type="hidden" class="reset" id="val_product_name" name="product_name">
+              <input type="hidden" class="reset" id="val_product_qty" name="stock_product_qty">
 
                 <div class="col-sm-12 col-md-8">
                     <h1 class="">

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('detailbk', function (Blueprint $table) {
-            $table->bigInteger('kd_bkeluar');
+            $table->string('kd_bkeluar', 500);
             $table->bigInteger('kd_menu');
             $table->primary(array('kd_bkeluar','kd_menu'));  
             $table->decimal('qty');
