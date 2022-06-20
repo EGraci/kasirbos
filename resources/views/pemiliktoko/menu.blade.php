@@ -61,12 +61,12 @@
                     <span>Menu</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/restaruant/kasir">
+                <a class="nav-link" href="/restaurant/kasir">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Kasir</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/restaruant/supplier">
+                <a class="nav-link" href="/restaurant/supplier">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Supplier</span></a>
             </li>
