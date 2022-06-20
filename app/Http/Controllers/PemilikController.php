@@ -149,7 +149,7 @@ class PemilikController extends Controller
         }else if(session()->get('level') == null){
             return redirect('/');
         }
-        return view('pemiliktoko/home',[
+        return view('pemiliktoko/menu_kasir',[
             "profile" => Profile::where('id_profile', session()->get('id_profile'))->first()
         ]);
     }
