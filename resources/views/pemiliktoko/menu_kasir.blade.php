@@ -8,7 +8,7 @@
                     <form class="form-horizontal" id="form_order" role="form">
                     <div class="form-group row">
                         <div class="col">
-                        <input class="form-control reset border-primary" id="search"  name="search" type="text" placeholder="Cari Barcode atau Nama" >
+                        <input class="form-control reset border-primary" id="search"  id="search" name="search" type="text" placeholder="Nama" >
                         </div>
                     </div>
                     
@@ -150,5 +150,178 @@
         </div>
     </div>
 
+    <script>
+        let table;
     
+        $(document).ready(function(){
+        //   list_transaction();
+          $('#product_name').focus();
+          listening_serch_product();
+          $("body").toggleClass("sidebar-toggled");
+          $(".sidebar").toggleClass("toggled");
+        });
+    
+        function listening_serch_product(params) {
+          $("#search").autocomplete({
+            minLength: 1,
+            delay : 400,
+            source: function(request, response) { 
+              jQuery.ajax({
+                url: "<?= 'option/search_product' ?>",
+                data: {
+                  keyword : request.term
+                },
+                dataType: "json",
+                success: function(data){
+                  response(data);
+                }
+              })
+            },
+            select:  function(e, ui){
+              $("#search").val('');
+              $("#product_name").text(ui.item.product_name);
+              $("#product_stock").text(ui.item.product_qty);
+              $("#selling_price").text(convertToRupiah(ui.item.selling_price));
+              $("#product_id").val(ui.item.product_id);
+              $("#val_selling_price").val(ui.item.selling_price);
+              $("#val_product_name").val(ui.item.product_name);
+              $("#val_product_qty").val(ui.item.product_qty);
+              $('#product_qty').focus();
+              return false;
+            }
+          })
+          .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+              .append( "<a style='display: flex;'><div style='width: 100px;'>" + item.barcode + "</div> " + item.product_name + "</a>" )
+              .appendTo( ul );
+          };
+        }
+          
+        function reload_table(){
+          table.ajax.reload(null, false);
+        }
+    
+        function subTotal(qty){
+          if (qty > $("#val_product_qty").val()) {
+            swal({
+              title: "Ups?",
+              text: "Qty Melebihi Stok",
+              dangerMode: true,
+            });
+          }
+          
+          let harga = $('#val_selling_price').val();
+          let promo = $('#jenis_promo').val();
+          let potongan = $('#potongan').val();
+          let hrg_potong = $('#harga_potongan').val();
+          if(promo == 'minimal'){
+            let induk = Math.floor(qty / potongan);
+            let sisa = qty % potongan;
+            let sub = (induk*hrg_potong)+(harga*sisa);
+            $('#sub_total').val(convertToRupiah(sub));
+            $('#tambah').removeAttr("disabled");
+          }
+          else{
+            let diskon = harga - (harga * potongan / 100);
+            $('#sub_total').text(convertToRupiah(diskon * qty));
+            $('#tambah').removeAttr("disabled");
+          }
+        }
+          
+        function save_to_cart(){
+          $.ajax({
+            url : "<?= site_url('option/add_keranjang') ?>",
+            type: "POST",
+            dataType: "JSON",
+            data: $('#form_order').serialize(),
+            success: function(data){
+              $("#total_belanja").text(convertToRupiah(data.total));
+              reload_table();
+              $('#val_total').val(data.total);
+              $("#product_name").text('');
+              $("#product_stock").text('');
+              $("#selling_price").text('');
+              $('#sub_total').text('');
+              $('#tambah').attr("disabled","disabled");
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+              alert('Error adding data');
+            }
+          });
+          $('.reset').val('');
+        }
+    
+        document.onkeydown = function(e){
+          let qty = $('#product_qty').val();
+          let bill = $('#bayar').val();
+          if(qty !== ''){
+            switch(e.keyCode){
+              case 13:
+                save_to_cart();
+              break;
+            }
+          }
+          if(bill !== ''){
+            switch(e.keyCode){
+              case 13:
+                finish_transaction();
+              break;
+            }
+          }
+          switch(e.keyCode){
+            case 113:
+              $('#product_name').focus();
+            break;
+          }
+        };
+        
+        function showKembali(bayar) {
+          if (bayar === '') {
+            $("#total_bayar").text(0);
+            $("#total_kembali").text(0);
+            $('#selesai').attr("disabled", "disabled");
+          } else {
+            let total = $('#val_total').val();
+            let kembalian = bayar - total
+            $("#total_bayar").text(convertToRupiah(bayar));
+            $("#total_kembali").text(convertToRupiah(kembalian));
+            if (kembalian >= 0) {
+              $('#selesai').removeAttr("disabled");
+            } else {
+              $('#selesai').attr("disabled", "disabled");
+            }
+          }
+        }
+        
+        function convertToRupiah(angka) {
+          let rupiah = '';
+          let angkarev = angka.toString().split('').reverse().join('');
+          for(let i = 0; i < angkarev.length; i++)
+          if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+          return rupiah.split('',rupiah.length-1).reverse().join('');
+        }
+        
+        function preview_struck() {
+          let bayar = $('#bayar').val();
+          let kembali = $('#kembali').val();
+          $.ajax({
+            url: "<?= site_url('option/save_orders/') ?>",
+            data: {
+              bayar:bayar,
+              kembali:kembali
+            },
+            method: "POST",
+            success: function(data){
+              $('#modal_struck').modal('show');
+              $('#content_struck').html(data);
+            }
+          });
+        }
+    
+
+
+        
+    
+
+      </script>
 @endsection
