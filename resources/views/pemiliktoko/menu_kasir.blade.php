@@ -1,47 +1,46 @@
 @extends('pemiliktoko/menu')
     @section('konten')
-
-    
-      {{-- <?php 
-		  $id = $_SESSION['admin']['id_member'];
-		  $hasil = $lihat -> member_edit($id);
-      ?> --}}
-
-
+    <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
       <section id="main-content">
           <section class="wrapper">
               <div class="row">
                   <div class="col-lg-12 main-chart">
 						<h3>Keranjang Penjualan</h3>
 						<br>
-						{{-- <?php if(isset($_GET['success'])){?> --}}
-						<div class="alert alert-success">
+						{{-- <div class="alert alert-success">
 							<p>Edit Data Berhasil !</p>
-						</div>
-						{{-- <?php }?> --}}
-						{{-- <?php if(isset($_GET['remove'])){?> --}}
-						<div class="alert alert-danger">
+						</div> --}}
+						{{-- <div class="alert alert-danger">
 							<p>Hapus Data Berhasil !</p>
-						</div>
-						{{-- <?php }?> --}}
-						<div class="col-sm-4">
+						</div> --}}
+						<div class="col-sm-12">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h4><i class="fa fa-search"></i> Cari Barang</h4>
+									<h4><i class="fa fa-list"></i> Menu</h4>
 								</div>
 								<div class="panel-body">
-									<input type="text" id="cari" class="form-control" name="cari" placeholder="Masukan : Kode / Nama Barang  [ENTER]">
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-8">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h4><i class="fa fa-list"></i> Hasil Pencarian</h4>
-								</div>
-								<div class="panel-body">
-									<div id="hasil_cari"></div>
-									<div id="tunggu"></div>
+                  <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                              <tr>
+                                  <th>KD Menu</th>
+                                  <th>Nama Menu</th>
+                                  <th>Harga Menu</th>
+                                  <th>Aksi</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach ($menu as $data)                                
+                              <tr>
+                                  <th>{{$data->kd_menu}}</th>
+                                  <th>{{$data->nama_menu}}</th>
+                                  <th>{{$data->harga_menu}}</th>
+                                  <th><a href="{{$data->kd_menu}}">Ubah</a></th>
+                              </tr>
+                              @endforeach                     
+                          </tbody>
+                      </table>
+                  </div>
 									
 								</div>
 							</div>
@@ -60,12 +59,6 @@
 								</div>
 								<div class="panel-body">
 									<div id="keranjang">
-										<table class="table table-bordered">
-											<tr>
-												<td><b>Tanggal</b></td>
-												<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
-											</tr>
-										</table>
 										<table class="table table-bordered" id="example1">
 											<thead>
 												<tr>
@@ -78,92 +71,41 @@
 												</tr>
 											</thead>
 											<tbody>
-												{{-- <?php $total_bayar=0; $no=1; $hasil_penjualan = $lihat -> penjualan();?>
-												<?php foreach($hasil_penjualan  as $isi){;?> --}}
 												<tr>
 													<td></td>
 													<td></td>
 													<td>
-												<!-- aksi ke table penjualan -->
-												<form method="POST" action="fungsi/edit/edit.php?jual=jual">
+                            <!-- aksi ke table penjualan -->
+                            <form method="POST" action="fungsi/edit/edit.php?jual=jual">
 														<input type="number" name="jumlah" value="" class="form-control">
 														<input type="hidden" name="id" value="" class="form-control">
 														<input type="hidden" name="id_barang" value="" class="form-control">
 													</td>
-													<td>Rp.<?php echo number_format($isi['total']);?>,-</td>
-													<td><?php echo $isi['nm_member'];?></td>
+													<td>Rp.0,-</td>
+													<td></td>
 													<td>
 														<button type="submit" class="btn btn-warning">Update</button>
-												</form>
-												<!-- aksi ke table penjualan -->
-														<a href="fungsi/hapus/hapus.php?jual=jual&id="  "  class="btn btn-danger"><i class="fa fa-times"></i>
+												    </form>
+												    <!-- aksi ke table penjualan -->
+														<a href="fungsi/hapus/hapus.php?jual=jual&id="  class="btn btn-danger"><i class="fa fa-times"></i>
 														</a>
 													</td>
 												</tr>
-												<?php $no++; $total_bayar += $isi['total'];}?>
 											</tbody>
 									</table>
 									<br/>
-									<?php $hasil = $lihat -> jumlah(); ?>
 									<div id="kasirnya">
 										<table class="table table-stripped">
-											<?php
-											// proses bayar dan ke nota
-											if(!empty($_GET['nota'] == 'yes')) {
-												$total = $_POST['total'];
-												$bayar = $_POST['bayar'];
-												if(!empty($bayar))
-												{
-													$hitung = $bayar - $total;
-													if($bayar >= $total)
-													{
-														$id_barang = $_POST['id_barang'];
-														$id_member = $_POST['id_member'];
-														$jumlah = $_POST['jumlah'];
-														$total = $_POST['total1'];
-														$tgl_input = $_POST['tgl_input'];
-														$periode = $_POST['periode'];
-														$jumlah_dipilih = count($id_barang);
-														
-														for($x=0;$x<$jumlah_dipilih;$x++){
-
-															$d = array($id_barang[$x],$id_member[$x],$jumlah[$x],$total[$x],$tgl_input[$x],$periode[$x]);
-															$sql = "INSERT INTO nota (id_barang,id_member,jumlah,total,tanggal_input,periode) VALUES(?,?,?,?,?,?)";
-															$row = $config->prepare($sql);
-															$row->execute($d);
-
-															// ubah stok barang
-															$sql_barang = "SELECT * FROM barang WHERE id_barang = ?";
-															$row_barang = $config->prepare($sql_barang);
-															$row_barang->execute(array($id_barang[$x]));
-															$hsl = $row_barang->fetch();
-															
-															$stok = $hsl['stok'];
-															$idb  = $hsl['id_barang'];
-
-															$total_stok = $stok - $jumlah[$x];
-															// echo $total_stok;
-															$sql_stok = "UPDATE barang SET stok = ? WHERE id_barang = ?";
-															$row_stok = $config->prepare($sql_stok);
-															$row_stok->execute(array($total_stok, $idb));
-														}
-														echo '<script>alert("Belanjaan Berhasil Di Bayar !");</script>';
-													}else{
-														echo '<script>alert("Uang Kurang ! Rp.'.$hitung.'");</script>';
-													}
-												}
-											}
-											?>
-											<!-- aksi ke table nota -->
+										
+							
 											<form method="POST" action="index.php?page=jual&nota=yes#kasirnya">
-												{{-- <?php foreach($hasil_penjualan as $isi){;?>
-													<input type="hidden" name="id_barang[]" value="<?php echo $isi['id_barang'];?>">
-													<input type="hidden" name="id_member[]" value="<?php echo $isi['id_member'];?>">
-													<input type="hidden" name="jumlah[]" value="<?php echo $isi['jumlah'];?>">
-													<input type="hidden" name="total1[]" value="<?php echo $isi['total'];?>">
-													<input type="hidden" name="tgl_input[]" value="<?php echo $isi['tanggal_input'];?>">
-													<input type="hidden" name="periode[]" value="<?php echo date('m-Y');?>">
-												<?php $no++; }?> --}}
+													<input type="hidden" name="id_barang[]" value="">
+													<input type="hidden" name="id_member[]" value="">
+													<input type="hidden" name="jumlah[]" value="">
+													<input type="hidden" name="total1[]" value="">
+													<input type="hidden" name="tgl_input[]" value="">
+													<input type="hidden" name="periode[]" value="">
+								
 												<tr>
 													<td>Total Semua  </td>
 													<td><input type="text" class="form-control" name="total" value=""></td>
@@ -177,7 +119,7 @@
 											<!-- aksi ke table nota -->
 											<tr>
 												<td>Kembali</td>
-												<td><input type="text" class="form-control" value="<?php echo $hitung;?>"></td>
+												<td><input type="text" class="form-control" value=""></td>
 												<td></td>
 												<td>
 													
@@ -194,30 +136,10 @@
 				  </div>
               </div>
           </section>
-      </section>
-	
-
-<script>
-// AJAX call for autocomplete 
-$(document).ready(function(){
-	$("#cari").change(function(){
-		$.ajax({
-		type: "POST",
-		url: "fungsi/edit/edit.php?cari_barang=yes",
-		data:'keyword='+$(this).val(),
-		beforeSend: function(){
-            $("#hasil_cari").hide();
-			$("#tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>');
-		},
-          success: function(html){
-			$("#tunggu").html('');
-            $("#hasil_cari").show();
-            $("#hasil_cari").html(html);
-		}
-	});
-	});
-});
-//To select country name
-</script>
-    
+      </section>  
+         <!-- Page level plugins -->
+         <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}} "></script>
+         <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}} "></script>
+         <!-- Page level custom scripts -->
+         <script src="{{asset('js/demo/datatables-demo.js')}} "></script>  
 @endsection

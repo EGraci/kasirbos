@@ -156,7 +156,8 @@ class PemilikController extends Controller
         $nota = IdGenerator::generate($nota);
         return view('pemiliktoko/menu_kasir',[
             "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
-            "id" => $nota
+            "id" => $nota,
+            "menu" => Menu::where("id_profile","=",session()->get('id_profile'))->get()
 
         ]);
     }
