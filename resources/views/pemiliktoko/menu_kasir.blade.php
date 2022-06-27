@@ -37,7 +37,7 @@
 									<input name="aksi" value="tambah" type="hidden">
 								  <th>{{$data->nama_menu}}</th>
                                   <th>{{$data->harga_menu}}</th>
-                                  <th><button type="submit">Tambah</button></th>
+                                  <th><button type="submit" <i class="fa fa-plus" aria-hidden="true"></i></button></th>
 								  </form>
                               </tr>
                               @endforeach                     
@@ -102,6 +102,7 @@
 													<td><input type="text" class="form-control" name="bayar" value=""></td>
 													<td><button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
 													</td>
+													
 												</tr>
 											</form>
 											<!-- aksi ke table nota -->
