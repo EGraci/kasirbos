@@ -190,17 +190,22 @@ class PemilikController extends Controller
     public function do_kasir(Request $request){
         if($request->aksi == "tambah"){
             $this->detailbk->pesan(session()->get('nota'),$request->kd_menu);
-            return redirect('/restaurant/kasir');
         }else if($request->aksi == "pesan"){
             $this->detailbk->pesan(session()->get('nota'),$request->kd_menu, $request->qty);
-            return redirect('/restaurant/kasir');
         }else if($request->aksi == "bayar"){
             $nota = BKeluar::find(session()->get('nota'));
             $nota->bayar = $request->bayar;
             $nota->total = $request->total;
             $nota->save();
-            return redirect('/restaurant/kasir');
         }
+        return redirect('/restaurant/kasir');
+    }
+    public function delete_kasir($menu){
+        $nota = DetailBK::where([
+            ['kd_bkeluar','=',session()->get('nota')],
+            ['kd_menu','=',$menu],
+        ])->delete();
+        return redirect('/restaurant/kasir');
     }
     public function cari_menu($nama){
         if(session()->get('level') == 1){

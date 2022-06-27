@@ -53,6 +53,7 @@ Route::get('/restaurant/bahan/{kd}', [PemilikController::class, 'set_bahan']);
 Route::post('/restaurant/bahan/{kd}', [PemilikController::class, 'do_bahan']);
 Route::get('/restaurant/kasir', [PemilikController::class, 'kasir']);
 Route::post('/restaurant/kasir', [PemilikController::class, 'do_kasir']);
+Route::get('/restaurant/kasir/{kd}', [PemilikController::class, 'delete_kasir']);
 Route::get('/restaurant/supplier', [PemilikController::class, 'supplier']);
 
 
