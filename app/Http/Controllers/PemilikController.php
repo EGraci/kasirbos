@@ -177,7 +177,7 @@ class PemilikController extends Controller
             }
         }
         $d = BKeluar::where('kd_bkeluar',$nota)->first();
-        if($d->bayar == null){
+        if(BKeluar::where('kd_bkeluar',$nota)->count() == 0){
             $bayar = "";
         }else{
             $bayar = $d->bayar;
