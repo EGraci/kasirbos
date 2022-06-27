@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kd_bkeluar', 500);
             $table->bigInteger('kd_menu');
             $table->primary(array('kd_bkeluar','kd_menu'));  
-            $table->decimal('qty');
+            $table->integer('qty');
         });
     }
 

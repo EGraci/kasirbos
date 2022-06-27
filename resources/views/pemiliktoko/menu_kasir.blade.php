@@ -23,7 +23,6 @@
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                               <tr>
-                                  <th>KD Menu</th>
                                   <th>Nama Menu</th>
                                   <th>Harga Menu</th>
                                   <th>Aksi</th>
@@ -32,10 +31,14 @@
                           <tbody>
                               @foreach ($menu as $data)                                
                               <tr>
-                                  <th>{{$data->kd_menu}}</th>
-                                  <th>{{$data->nama_menu}}</th>
+								  <form action="/restaurant/kasir" method="post">
+									@csrf
+									<input type="hidden" value="{{$data->kd_menu}}" name="kd_menu">
+									<input name="aksi" value="tambah" type="hidden">
+								  <th>{{$data->nama_menu}}</th>
                                   <th>{{$data->harga_menu}}</th>
-                                  <th><a href="{{$data->kd_menu}}">Ubah</a></th>
+                                  <th><button type="submit">Tambah</button></th>
+								  </form>
                               </tr>
                               @endforeach                     
                           </tbody>
@@ -50,11 +53,7 @@
 						<div class="col-sm-12">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
-									<h4><i class="fa fa-shopping-cart"></i> KASIR
-									<a class="btn btn-danger pull-right" 
-										onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" 
-										style="margin-top:-0.5pc;" href="fungsi/hapus/hapus.php?penjualan=jual">
-										<b>RESET KERANJANG</b></a>
+									<h4><i class="fa fa-shopping-cart"></i> Nota {{$id}}
 									</h4>
 								</div>
 								<div class="panel-body">
@@ -62,50 +61,39 @@
 										<table class="table table-bordered" id="example1">
 											<thead>
 												<tr>
-													<td> No</td>
-													<td> Nama Barang</td>
+													<td> Nama Menu</td>
 													<td style="width:10%;"> Jumlah</td>
 													<td style="width:20%;"> Total</td>
-													<td> Kasir</td>
 													<td> Aksi</td>
 												</tr>
 											</thead>
 											<tbody>
+												@foreach($nota as $data)
 												<tr>
-													<td></td>
-													<td></td>
-													<td>
-                            <!-- aksi ke table penjualan -->
-                            <form method="POST" action="fungsi/edit/edit.php?jual=jual">
-														<input type="number" name="jumlah" value="" class="form-control">
-														<input type="hidden" name="id" value="" class="form-control">
-														<input type="hidden" name="id_barang" value="" class="form-control">
+													<td>{{$data->nama_menu}}
+														<!-- aksi ke table penjualan -->
+														<form method="POST" action="/restaurant/kasir">
+														@csrf
+														<input name="aksi" value="pesan" type="hidden">
+														<input type="hidden" name="id_nota" value="{{$id}}" class="form-control">
+														<input type="hidden" name="id_menu" value="{{$data->kd_menu}}" class="form-control">
 													</td>
-													<td>Rp.0,-</td>
-													<td></td>
+													<td>Rp.{{$data->qty * $data->harga_menu}}</td>
+													<td><input type="number" name="qty" value="{{$data->qty}}" class="form-control"></td>
 													<td>
 														<button type="submit" class="btn btn-warning">Update</button>
 												    </form>
 												    <!-- aksi ke table penjualan -->
-														<a href="fungsi/hapus/hapus.php?jual=jual&id="  class="btn btn-danger"><i class="fa fa-times"></i>
+														<a href="/restaurant/kasir/{{$data->kd_menu}}"  class="btn btn-danger"><i class="fa fa-times"></i>
 														</a>
 													</td>
 												</tr>
+												@endforeach
 											</tbody>
 									</table>
 									<br/>
 									<div id="kasirnya">
 										<table class="table table-stripped">
-										
-							
-											<form method="POST" action="index.php?page=jual&nota=yes#kasirnya">
-													<input type="hidden" name="id_barang[]" value="">
-													<input type="hidden" name="id_member[]" value="">
-													<input type="hidden" name="jumlah[]" value="">
-													<input type="hidden" name="total1[]" value="">
-													<input type="hidden" name="tgl_input[]" value="">
-													<input type="hidden" name="periode[]" value="">
-								
 												<tr>
 													<td>Total Semua  </td>
 													<td><input type="text" class="form-control" name="total" value=""></td>

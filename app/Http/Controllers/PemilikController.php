@@ -5,6 +5,8 @@ use App\Models\Menu;
 use App\Models\Bahan;
 use App\Models\Berat;
 use App\Models\Produk;
+use App\Models\BKeluar;
+use App\Models\DetailBK;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -13,8 +15,12 @@ use App\Models\Profile;
 class PemilikController extends Controller
 {
     private $produk;
+    private $bkeluar;
+    private $detailbk;
     function __construct() {
         $this->produk = new Produk();
+        $this->bkeluar = new BKeluar();
+        $this->detailbk = new DetailBK();
     }
     public function suppliertoko(){
         if(session()->get('level') == 1){
@@ -60,7 +66,6 @@ class PemilikController extends Controller
         ]);
     }
     public function produk($menu){
-        dd($menu);
         if(session()->get('level') == 1){
             return redirect('/admin');
         }else if (session()->get('level') == '3') {
@@ -152,14 +157,32 @@ class PemilikController extends Controller
             return redirect('/');
         }
 
-        $nota = ['table' => 'bkeluar', 'length' => 10, 'prefix' => '0', 'field' => 'kd_bkeluar'];
-        $nota = IdGenerator::generate($nota);
+        if(session()->get('nota') == null){
+            $nota = ['table' => 'bkeluar', 'length' => 10, 'prefix' => '0', 'field' => 'kd_bkeluar'];
+            $nota = IdGenerator::generate($nota);
+            session(['nota' => $nota]);
+        }else{
+            $nota = session()->get('nota');
+        }
+       
         return view('pemiliktoko/menu_kasir',[
             "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
             "id" => $nota,
-            "menu" => Menu::where("id_profile","=",session()->get('id_profile'))->get()
+            "menu" => Menu::where("id_profile","=",session()->get('id_profile'))->get(),
+            "nota" => $this->detailbk->findById($nota)
 
         ]);
+    }
+    public function do_kasir(Request $request){
+        if($request->aksi == "tambah"){
+            $this->detailbk->pesan(session()->get('nota'),$request->kd_menu);
+            return redirect('/restaurant/kasir');
+        }else if($request->aksi == "pesan"){
+            
+            return redirect('/restaurant/kasir');
+        }else if($request->aksi == "bayar"){
+
+        }
     }
     public function cari_menu($nama){
         if(session()->get('level') == 1){
