@@ -59,7 +59,7 @@
 								<div class="panel-heading"> 
 									<a class="btn btn-danger pull-right" 
 										onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" 
-										style="margin-top:-0.5pc;" href="fungsi/hapus/hapus.php?penjualan=jual">
+										style="margin-top:-0.5pc;" href="/restaurant/kasir/reset">
 										<i class="fa fa-shopping-cart"> <b>RESET KERANJANG</b></i></a>
 									</h4>
 								</div>
@@ -115,7 +115,7 @@
 													<td>Total Semua  </td>
 													<td><input type="text" class="form-control" name="total" value="{{$total}}" readonly></td>
 													<td>Bayar  </td>
-													<td><input type="text" class="form-control" name="bayar" value="{{$hasil->bayar}}"></td>
+													<td><input type="text" class="form-control" name="bayar" value="{{$bayar}}"></td>
 													<td><button type="submit" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
 													</td>
 													

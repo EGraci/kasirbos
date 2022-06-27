@@ -176,13 +176,19 @@ class PemilikController extends Controller
                 $kembali = $this->bkeluar->kembali($nota);
             }
         }
+        $d = BKeluar::where('kd_bkeluar',$nota)->first();
+        if($d->bayar == null){
+            $bayar = "";
+        }else{
+            $bayar = $d->bayar;
+        }
        
         return view('pemiliktoko/menu_kasir',[
             "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
             "id" => $nota,
             "menu" => Menu::where("id_profile","=",session()->get('id_profile'))->get(),
             "nota" => $this->detailbk->findById($nota),
-            "hasil" => BKeluar::where('kd_bkeluar',$nota)->first(),
+            "bayar" => $bayar,
             "kembali" => $kembali
 
         ]);
@@ -205,6 +211,13 @@ class PemilikController extends Controller
             ['kd_bkeluar','=',session()->get('nota')],
             ['kd_menu','=',$menu],
         ])->delete();
+        return redirect('/restaurant/kasir');
+    }
+    public function reset_kasir(){
+        $pesan = DetailBK::where([['kd_bkeluar','=',session()->get('nota')]])->get();
+        foreach($pesan as $d){
+
+        }
         return redirect('/restaurant/kasir');
     }
     public function cari_menu($nama){
