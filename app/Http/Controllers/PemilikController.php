@@ -161,15 +161,29 @@ class PemilikController extends Controller
             $nota = ['table' => 'bkeluar', 'length' => 10, 'prefix' => '0', 'field' => 'kd_bkeluar'];
             $nota = IdGenerator::generate($nota);
             session(['nota' => $nota]);
+            $bk = new BKeluar();
+            $bk->kd_bkeluar = $nota;
+            $bk->total = 0;
+            $bk->bayar = 0;
+            $bk->tanggal_bk = date('Y-m-d');
+            $bk->save();
+            $kembali = "";
         }else{
             $nota = session()->get('nota');
+            if($this->bkeluar->kembali($nota) == 0){
+                $kembali = "";
+            }else{
+                $kembali = $this->bkeluar->kembali($nota);
+            }
         }
        
         return view('pemiliktoko/menu_kasir',[
             "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
             "id" => $nota,
             "menu" => Menu::where("id_profile","=",session()->get('id_profile'))->get(),
-            "nota" => $this->detailbk->findById($nota)
+            "nota" => $this->detailbk->findById($nota),
+            "hasil" => BKeluar::where('kd_bkeluar',$nota)->first(),
+            "kembali" => $kembali
 
         ]);
     }
@@ -178,10 +192,14 @@ class PemilikController extends Controller
             $this->detailbk->pesan(session()->get('nota'),$request->kd_menu);
             return redirect('/restaurant/kasir');
         }else if($request->aksi == "pesan"){
-            
+            $this->detailbk->pesan(session()->get('nota'),$request->kd_menu, $request->qty);
             return redirect('/restaurant/kasir');
         }else if($request->aksi == "bayar"){
-
+            $nota = BKeluar::find(session()->get('nota'));
+            $nota->bayar = $request->bayar;
+            $nota->total = $request->total;
+            $nota->save();
+            return redirect('/restaurant/kasir');
         }
     }
     public function cari_menu($nama){

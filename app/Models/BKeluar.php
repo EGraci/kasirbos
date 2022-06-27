@@ -17,5 +17,13 @@ class BKeluar extends Model
         'bayar',
         'tanggal',
     ];
+    public function kembali($kd_nota){
+        $data = DB::table('bkeluar')
+        ->where([
+            ['kd_bkeluar','=',$kd_nota],
+            ])
+            ->first();
+        return $data->bayar - $data->total;
+    }
     
 }

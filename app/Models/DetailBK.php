@@ -31,7 +31,7 @@ class DetailBK extends Model
 
             ));
     }
-    public function pesan($kd_nota, $kd_menu){
+    public function pesan($kd_nota, $kd_menu, $qty = 0){
         $data = DB::table('detailbk')
         ->where([
             ['kd_bkeluar','=',$kd_nota],
@@ -43,8 +43,15 @@ class DetailBK extends Model
                 ->insert([
                     'kd_bkeluar' => $kd_nota,
                     'kd_menu' => $kd_menu,
-                    'qty' => 0
+                    'qty' => $qty
                 ]);
+            }else{
+                DB::table('detailbk')
+                ->where([
+                    ['kd_bkeluar','=',$kd_nota],
+                    ['kd_menu','=',$kd_menu],
+                    ])
+                ->update(['qty' => $qty]);
             }
     }
 }

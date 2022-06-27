@@ -69,12 +69,15 @@
 											<thead>
 												<tr>
 													<td> Nama Menu</td>
-													<td style="width:10%;"> Jumlah</td>
+													<td style="width:10%;"> Harga</td>
 													<td style="width:20%;"> Total</td>
 													<td> Aksi</td>
 												</tr>
 											</thead>
 											<tbody>
+												@php
+													$total = 0;
+												@endphp
 												@foreach($nota as $data)
 												<tr>
 													<td>{{$data->nama_menu}}
@@ -82,10 +85,14 @@
 														<form method="POST" action="/restaurant/kasir">
 														@csrf
 														<input name="aksi" value="pesan" type="hidden">
-														<input type="hidden" name="id_nota" value="{{$id}}" class="form-control">
-														<input type="hidden" name="id_menu" value="{{$data->kd_menu}}" class="form-control">
+														<input type="hidden" name="kd_menu" value="{{$data->kd_menu}}" class="form-control">
 													</td>
-													<td>Rp.{{$data->qty * $data->harga_menu}}</td>
+													<td>
+														@php
+														$total += $data->qty * $data->harga_menu;
+														echo "Rp.".$data->qty * $data->harga_menu;
+														@endphp
+													</td>
 													<td><input type="number" name="qty" value="{{$data->qty}}" class="form-control"></td>
 													<td>	
 														<button type="submit" class="btn btn-warning">Update</button>
@@ -102,12 +109,14 @@
 									<div id="kasirnya">
 										<table class="table table-stripped">
 												<tr>
+													<form action="/restaurant/kasir" method="post">
+													@csrf
+													<input name="aksi" value="bayar" type="hidden">
 													<td>Total Semua  </td>
-													<td><input type="text" class="form-control" name="total" value=""></td>
-												
+													<td><input type="text" class="form-control" name="total" value="{{$total}}" readonly></td>
 													<td>Bayar  </td>
-													<td><input type="text" class="form-control" name="bayar" value=""></td>
-													<td><button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
+													<td><input type="text" class="form-control" name="bayar" value="{{$hasil->bayar}}"></td>
+													<td><button type="submit" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
 													</td>
 													
 												</tr>
@@ -115,7 +124,7 @@
 											<!-- aksi ke table nota -->
 											<tr>
 												<td>Kembali</td>
-												<td><input type="text" class="form-control" value=""></td>
+												<td><input type="text" class="form-control" value="{{$kembali}}"></td>
 												<td></td>
 												<td>
 													
