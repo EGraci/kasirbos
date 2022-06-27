@@ -55,11 +55,10 @@
 								<div class="panel-heading">
 									<h4><i class="fa fa-shopping-cart"></i> Nota {{$id}}
 									</h4>
-								</div>
+								</div>	
 								<div class="panel-heading"> 
-									<a class="btn btn-danger pull-right" 
-										onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" 
-										style="margin-top:-0.5pc;" href="/restaurant/kasir/reset">
+									<a class="btn btn-danger pull-right" data-toggle="modal" data-target="#resetModal"
+										style="margin-top:-0.5pc;" href="#">
 										<i class="fa fa-shopping-cart"> <b>RESET KERANJANG</b></i></a>
 									</h4>
 								</div>
@@ -142,6 +141,24 @@
               </div>
           </section>
       </section>  
+	  	<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Apakah anda ingin reset keranjang ?</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="/restaurant/kasir/reset">reset</a>
+					</div>
+				</div>
+			</div>
+  		</div>
          <!-- Page level plugins -->
          <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}} "></script>
          <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}} "></script>

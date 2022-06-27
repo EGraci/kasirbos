@@ -170,11 +170,6 @@ class PemilikController extends Controller
             $kembali = "";
         }else{
             $nota = session()->get('nota');
-            if($this->bkeluar->kembali($nota) == 0){
-                $kembali = "";
-            }else{
-                $kembali = $this->bkeluar->kembali($nota);
-            }
         }
         $d = BKeluar::where('kd_bkeluar',$nota)->first();
         if(BKeluar::where('kd_bkeluar',$nota)->count() == 0){
@@ -182,6 +177,8 @@ class PemilikController extends Controller
         }else{
             $bayar = $d->bayar;
         }
+
+        $kembali = $this->bkeluar->kembali($nota);
        
         return view('pemiliktoko/menu_kasir',[
             "profile" => Profile::where('id_profile', session()->get('id_profile'))->first(),
@@ -214,27 +211,9 @@ class PemilikController extends Controller
         return redirect('/restaurant/kasir');
     }
     public function reset_kasir(){
-        $pesan = DetailBK::where([['kd_bkeluar','=',session()->get('nota')]])->get();
-        foreach($pesan as $d){
-
-        }
+        $pesan = $this->produk->stock(session()->get('nota'));
+        session()->remove('nota');
         return redirect('/restaurant/kasir');
-    }
-    public function cari_menu($nama){
-        if(session()->get('level') == 1){
-            return redirect('/admin');
-        }else if (session()->get('level') == '3') {
-            return redirect('/supplier');
-        }else if(session()->get('level') == null){
-            return redirect('/');
-        }
-        
-        return view('pemiliktoko/json',[
-            "data" => Menu::where([
-                ["id_profile","=",session()->get('id_profile')],
-                ["nama_menu","LIKE","%".$nama."%"],
-            ])->get()
-        ]);
     }
     public function add_menu(Request $request){
         $request->validate([

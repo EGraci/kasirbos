@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Bahan;
 
 class Produk extends Model
 {
@@ -68,5 +69,24 @@ class Produk extends Model
             return true;
         }
         return false;
+    }
+    public function stock($kd_nota){
+        $produk = DB::table('detailbk')
+        ->join('produk', 'produk.kd_menu', '=', 'detailbk.kd_menu')
+        ->join('bahan', 'bahan.kd_bahan', '=', 'produk.kd_bahan')
+        ->where([
+            ['detailbk.kd_bkeluar','=',$kd_nota],
+            ])
+        ->get(array(
+            'bahan.kd_bahan',
+            'detailbk.qty as pesan',
+            'produk.qty as kurang',
+            'bahan.qty as stok',
+        ));
+        foreach($produk as $data){
+            $bahan = Bahan::find($data->kd_bahan);
+            $bahan->qty -= $data->pesan * $data->kurang;
+            $bahan->save();
+        }
     }
 }
