@@ -44,7 +44,7 @@
                           </tbody>
                       </table>
                   </div>
-									
+								
 								</div>
 							</div>
 						</div>
@@ -54,6 +54,13 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h4><i class="fa fa-shopping-cart"></i> Nota {{$id}}
+									</h4>
+								</div>
+								<div class="panel-heading"> 
+									<a class="btn btn-danger pull-right" 
+										onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" 
+										style="margin-top:-0.5pc;" href="fungsi/hapus/hapus.php?penjualan=jual">
+										<i class="fa fa-shopping-cart"> <b>RESET KERANJANG</b></i></a>
 									</h4>
 								</div>
 								<div class="panel-body">
@@ -80,7 +87,7 @@
 													</td>
 													<td>Rp.{{$data->qty * $data->harga_menu}}</td>
 													<td><input type="number" name="qty" value="{{$data->qty}}" class="form-control"></td>
-													<td>
+													<td>	
 														<button type="submit" class="btn btn-warning">Update</button>
 												    </form>
 												    <!-- aksi ke table penjualan -->
